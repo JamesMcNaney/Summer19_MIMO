@@ -1,0 +1,128 @@
+<deployment-project plugin="plugin.toolbox" plugin-version="1.0">
+  <configuration file="C:\Users\LabUser\Downloads\QuaDriGa_2017.08.01_v2.0.0-664\tutorials\quadriga_src.prj" location="C:\Users\LabUser\Downloads\QuaDriGa_2017.08.01_v2.0.0-664\tutorials" name="quadriga_src" target="target.toolbox" target-name="Package Toolbox">
+    <param.appname>quadriga_src</param.appname>
+    <param.authnamewatermark />
+    <param.email />
+    <param.company />
+    <param.summary />
+    <param.description />
+    <param.screenshot />
+    <param.version>1.0</param.version>
+    <param.output>${PROJECT_ROOT}\quadriga_src.mltbx</param.output>
+    <param.products.name />
+    <param.products.id />
+    <param.products.version />
+    <param.platforms />
+    <param.guid>583d281c-0bdf-4d1f-b6d3-3c1ef04977f2</param.guid>
+    <param.exclude.filters />
+    <param.exclude.pcodedmfiles>true</param.exclude.pcodedmfiles>
+    <param.examples />
+    <param.demosxml />
+    <param.apps />
+    <param.registered.apps />
+    <param.docs />
+    <param.getting.started.guide />
+    <param.matlabpath.excludes />
+    <param.javaclasspath.excludes />
+    <param.exported.on.package>false</param.exported.on.package>
+    <param.required.addons />
+    <param.matlab.project.id />
+    <param.matlab.project.name />
+    <param.release.start />
+    <param.release.end />
+    <param.release.current.only>false</param.release.current.only>
+    <param.compatiblity.windows>true</param.compatiblity.windows>
+    <param.compatiblity.macos>true</param.compatiblity.macos>
+    <param.compatiblity.linux>true</param.compatiblity.linux>
+    <param.compatiblity.matlabonline>true</param.compatiblity.matlabonline>
+    <param.installation.map />
+    <param.additional.sw.names />
+    <param.additional.sw.licenses />
+    <param.additional.sw.win.url />
+    <param.additional.sw.mac.url />
+    <param.additional.sw.linux.url />
+    <unset>
+      <param.authnamewatermark />
+      <param.email />
+      <param.company />
+      <param.summary />
+      <param.description />
+      <param.screenshot />
+      <param.version />
+      <param.output />
+      <param.products.name />
+      <param.products.id />
+      <param.products.version />
+      <param.platforms />
+      <param.exclude.filters />
+      <param.exclude.pcodedmfiles />
+      <param.examples />
+      <param.demosxml />
+      <param.apps />
+      <param.registered.apps />
+      <param.docs />
+      <param.getting.started.guide />
+      <param.matlabpath.excludes />
+      <param.javaclasspath.excludes />
+      <param.exported.on.package />
+      <param.required.addons />
+      <param.matlab.project.id />
+      <param.matlab.project.name />
+      <param.release.start />
+      <param.release.end />
+      <param.release.current.only />
+      <param.compatiblity.windows />
+      <param.compatiblity.macos />
+      <param.compatiblity.linux />
+      <param.compatiblity.matlabonline />
+      <param.installation.map />
+      <param.additional.sw.names />
+      <param.additional.sw.licenses />
+      <param.additional.sw.win.url />
+      <param.additional.sw.mac.url />
+      <param.additional.sw.linux.url />
+    </unset>
+    <fileset.rootdir>
+      <file>C:\Users\LabUser\Downloads\QuaDriGa_2017.08.01_v2.0.0-664\quadriga_src</file>
+    </fileset.rootdir>
+    <fileset.rootfiles>
+      <file>C:\Users\LabUser\Downloads\QuaDriGa_2017.08.01_v2.0.0-664\quadriga_src\+qf</file>
+      <file>C:\Users\LabUser\Downloads\QuaDriGa_2017.08.01_v2.0.0-664\quadriga_src\@qd_arrayant</file>
+      <file>C:\Users\LabUser\Downloads\QuaDriGa_2017.08.01_v2.0.0-664\quadriga_src\@qd_builder</file>
+      <file>C:\Users\LabUser\Downloads\QuaDriGa_2017.08.01_v2.0.0-664\quadriga_src\@qd_channel</file>
+      <file>C:\Users\LabUser\Downloads\QuaDriGa_2017.08.01_v2.0.0-664\quadriga_src\@qd_layout</file>
+      <file>C:\Users\LabUser\Downloads\QuaDriGa_2017.08.01_v2.0.0-664\quadriga_src\@qd_simulation_parameters</file>
+      <file>C:\Users\LabUser\Downloads\QuaDriGa_2017.08.01_v2.0.0-664\quadriga_src\@qd_sos</file>
+      <file>C:\Users\LabUser\Downloads\QuaDriGa_2017.08.01_v2.0.0-664\quadriga_src\@qd_track</file>
+      <file>C:\Users\LabUser\Downloads\QuaDriGa_2017.08.01_v2.0.0-664\quadriga_src\config</file>
+      <file>C:\Users\LabUser\Downloads\QuaDriGa_2017.08.01_v2.0.0-664\quadriga_src\lgpl.txt</file>
+      <file>C:\Users\LabUser\Downloads\QuaDriGa_2017.08.01_v2.0.0-664\quadriga_src\version_history.html</file>
+    </fileset.rootfiles>
+    <fileset.depfun.included />
+    <fileset.depfun.excluded />
+    <fileset.package />
+    <build-deliverables>
+      <file location="${PROJECT_ROOT}" name="quadriga_src.mltbx" optional="false">C:\Users\LabUser\Downloads\QuaDriGa_2017.08.01_v2.0.0-664\tutorials\quadriga_src.mltbx</file>
+    </build-deliverables>
+    <workflow />
+    <matlab>
+      <root>C:\Program Files\MATLAB\R2019a</root>
+      <toolboxes />
+    </matlab>
+    <platform>
+      <unix>false</unix>
+      <mac>false</mac>
+      <windows>true</windows>
+      <win2k>false</win2k>
+      <winxp>false</winxp>
+      <vista>false</vista>
+      <linux>false</linux>
+      <solaris>false</solaris>
+      <osver>10.0</osver>
+      <os32>false</os32>
+      <os64>true</os64>
+      <arch>win64</arch>
+      <matlab>true</matlab>
+    </platform>
+  </configuration>
+</deployment-project>
