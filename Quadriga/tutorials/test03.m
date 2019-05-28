@@ -64,11 +64,15 @@ compute_directions( l.track );                          % Align antenna directio
 
 %%
 % Now we create the channel coefficients. The fixing the random seed guarantees repeatable results
-% (i.e. the taps will be at the same positions for both runs). Also note the significantly longer
-% computing time when drifting is enabled.
+% (i.e. the taps will be at the same positions for both runs).
 
 p = l.init_builder;                                     % Create channel builders
+p.visualize_clusters;
+%%
+
 p.gen_ssf_parameters;                                   % Generate small-scale fading
+
+%%
 
 s.use_spherical_waves = 1;                              % Enable drifting (=spherical waves)
 

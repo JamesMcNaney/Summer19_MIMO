@@ -49,7 +49,9 @@ iter = 1;
 for rx_x = 1:gridx
     for ry_y = 1:gridy
 %         l.track(rx_x,ry_y) = qd_track('linear',0,0);                % linear track with 0m length... static
-        l.rx_position(1,iter)  = rx_x;         
+        l.rx_position(1,iter)  = rx_x;
+        l.rx_position(2,iter)  = ry_y;
+        l.rx_position(3,iter)  = 1.5;
 %         l.track(rx_x,ry_y).scenario          = UMal;                  % Scenario
         iter = iter + 1;
     end
@@ -62,10 +64,12 @@ compute_directions( l.track );                          % Align antenna directio
 
 %%
 % Now we create the channel coefficients. The fixing the random seed guarantees repeatable results
-% (i.e. the taps will be at the same positions for both runs). Also note the significantly longer
-% computing time when drifting is enabled.
+% (i.e. the taps will be at the same positions for both runs).
 
 p = l.init_builder;                                     % Create channel builders
+p.visual
+%%
+
 p.gen_ssf_parameters;                                   % Generate small-scale fading
 
 s.use_spherical_waves = 1;                              % Enable drifting (=spherical waves)
