@@ -49,9 +49,7 @@ iter = 1;
 for rx_x = 1:gridx
     for ry_y = 1:gridy
 %         l.track(rx_x,ry_y) = qd_track('linear',0,0);                % linear track with 0m length... static
-        l.rx_position(1,iter)  = rx_x;
-        l.rx_position(2,iter)  = ry_y;
-        l.rx_position(3,iter)  = 1.5;
+        l.rx_position(1,iter)  = rx_x;         
 %         l.track(rx_x,ry_y).scenario          = UMal;                  % Scenario
         iter = iter + 1;
     end
