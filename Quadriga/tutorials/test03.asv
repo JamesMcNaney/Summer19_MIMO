@@ -57,20 +57,22 @@ for rx_x = 1:gridx
         iter = iter + 1;
     end
 end
-l.set_scenario(UMal);                      % Use UMal scenario
+l.set
 
 set(0,'DefaultFigurePaperSize',[14.5 7.3])              % Adjust paper size for plot
 l.visualize;                                            % Plot the layout
 
-% compute_directions( l.track );                          % Align antenna direction with track
+compute_directions( l.track );                          % Align antenna direction with track
 
 %%
 % Now we create the channel coefficients. The fixing the random seed guarantees repeatable results
 % (i.e. the taps will be at the same positions for both runs).
 
 % p = l.init_builder;                                     % Create channel builders
-p = l.init_builder;
-
+p = init_builder(l);
+q = l.init_builder;
+boolo = (p == q);
+p.visualize_clusters;
 %%
 
 p.gen_ssf_parameters;                                   % Generate small-scale fading
@@ -100,7 +102,7 @@ set(gca,'XTick',1:32:255); set(gca,'XTickLabel',(0:32:256)/100e6*1e6);
 set(gca,'YTick',1:cn(1).no_snap/8:cn(1).no_snap);
 set(gca,'YTickLabel', (0:cn(1).no_snap/8:cn(1).no_snap)/cn(1).no_snap * 360 );
 xlabel('Delay [\mus]'); 
-title('PDP1');
+title('PDP');
 
 %%
 % The X-axis shows the delay in microseconds and the Y-axis shows the position on the circle. For
@@ -126,4 +128,4 @@ set(gca,'XTick',1:32:255); set(gca,'XTickLabel',(0:32:256)/100e6*1e6);
 set(gca,'YTick',1:cn(2).no_snap/8:cn(2).no_snap);
 set(gca,'YTickLabel', (0:cn(2).no_snap/8:cn(2).no_snap)/cn(2).no_snap * 20 );
 xlabel('Delay [\mus]'); 
-title('PDP2');
+title('PDP');
