@@ -1,1 +1,3 @@
 This folder should contain the code/notes made over QuaDRiGa in an attempt to have it extract channel coefficients for a Massive MU-MIMO simulation
+
+Within the tutorials folder, "test03" contains a modified version of one of the tutorial examples in my attempt to explore how to extract channel coefficients from a grid/array of receiver antennas.
