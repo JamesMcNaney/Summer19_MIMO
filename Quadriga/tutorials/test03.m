@@ -41,11 +41,6 @@ l.tx_position(3) = 25;                                  % Elevate Tx to 25 m
 UMal = 'BERLIN_UMa_LOS';                                % LOS scenario name
 UMan = 'BERLIN_UMa_NLOS';                               % NLOS scenario name
 
-%  l.track(1,1) = qd_track('linear',0,0);                % linear track with 0m length... static
-%  l.track(1,2) = qd_track('circular',0,0);                % linear track with 0m length... static
-%  l.track(2,1) = qd_track('linear',0,0);                % linear track with 0m length... static
-%  l.track(2,2) = qd_track('linear',0,0);                % linear track with 0m length... static
-
 iter = 1;
 for rx_x = 1:gridx
     for ry_y = 1:gridy
@@ -78,8 +73,9 @@ p.gen_ssf_parameters;                                   % Generate small-scale f
 %%
 
 s.use_spherical_waves = 1;                              % Enable drifting (=spherical waves)
-
+d = l.get_channels;                                     %what are the differences between this and the next line?
 c = get_channels( p ); 
+e = p.get_channels;                                     %same as line above
 cn = merge( c ); 
 
 %%
