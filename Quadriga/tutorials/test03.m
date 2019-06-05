@@ -4,9 +4,10 @@
 close all
 clear all
 
-gridx = 10;
-gridy = 10;
-rx_space = 1;
+gridx = 5;
+gridy = 5;
+gridz = 25;
+rx_space = 2;
 
 
 set(0,'defaultTextFontSize', 18)                        % Default Font Size
@@ -23,6 +24,17 @@ s.use_absolute_delays = 1;                              % Include delay of the L
 s.show_progress_bars = 0;                               % Disable progress bars
 
 %%
+a = qd_arrayant('lhcp-rhcp-dipole');    % Create circular polarized antenna
+
+a2 = qd_arrayant('custom',90,90,0);     % Create linear polarized patch antenna
+a2.copy_element(1,2);                   % Copy the antenna element
+a2.rotate_pattern(90,'x',2);            % Rotate second element by 90 degree
+
+a.append_array( a2 );                   % Append the second antenna to the first
+a.visualize;
+
+
+%%
 % Second, we create a more complex network layout featuring an elevated transmitter (25 m) and two
 % receivers at 1.5 m height. The first Rx moves along a circular track around the receiver. The
 % second receiver moves away from the Tx. Both start at the same point. Note here, that each track
@@ -34,26 +46,35 @@ s.show_progress_bars = 0;                               % Disable progress bars
 dummy = gridx*gridy;
 l = qd_layout(s);                                       % Create new QuaDRiGa layout
 l.no_rx = gridx*gridy;                                            % Two receivers
-l.tx_array = qd_arrayant('dipole');                     % Dipole antennas at all Rx and Tx
-l.rx_array = l.tx_array;
-l.tx_position(3) = 25;                                  % Elevate Tx to 25 m
+l.tx_array = a;                                 %james: these are the two lines that make all channel coefficients 4d complex       
+l.rx_array = a;                                 %james: but break the pdp calculations
+% l.tx_array = qd_arrayant('dipole');                     % Dipole antennas at all Rx and Tx
+% l.rx_array = l.tx_array;
+l.tx_position(3) = 25;    % Elevate Tx to 25 m
+l.track = qd_track('linear',0,0);
 
-UMal = 'BERLIN_UMa_LOS';                                % LOS scenario name
+
+%UMal = 'BERLIN_UMa_LOS';                                % LOS scenario name
 UMan = 'BERLIN_UMa_NLOS';                               % NLOS scenario name
+UMal = 'LOSonly';
 
+%%
 iter = 1;
-for rx_x = 1:gridx
-    for ry_y = 1:gridy
-%         l.track(1,iter) = qd_track('/iter' , 0, 0);                % linear track with 0m length... static
-        l.rx_position(1,iter)  = rx_x;
-        l.rx_position(2,iter)  = ry_y;
-        l.rx_position(3,iter)  = 1.5;
-%         l.track(1,iter).scenario          = UMal;                  % Scenario
-        iter = iter + 1;
+gridx2 = gridx/2;
+gridy2 = gridy/2;
+gridz2 = gridz/2;
+for rx_x = -gridx2:gridx2
+    for rx_y = -gridy2:gridy2
+        for rx_z = 1:gridz
+            l.rx_position(1,iter)  = rx_x*rx_space;
+            l.rx_position(2,iter)  = rx_y*rx_space;
+            l.rx_position(3,iter)  = rx_z*rx_space;
+            iter = iter + 1;
+        end    
     end
 end
 l.set_scenario(UMal);                      % Use UMal scenario
-
+%%
 set(0,'DefaultFigurePaperSize',[14.5 7.3])              % Adjust paper size for plot
 l.visualize;                                            % Plot the layout
 
@@ -72,11 +93,23 @@ p.gen_ssf_parameters;                                   % Generate small-scale f
 
 %%
 
-s.use_spherical_waves = 1;                              % Enable drifting (=spherical waves)
-d = l.get_channels;                                     %what are the differences between this and the next line?
+%s.use_spherical_waves = 1;                              % Enable drifting (=spherical waves)
+%d = l.get_channels;                                     %what are the differences between this and the next line?
+dist = get_distances( p );
 c = get_channels( p ); 
-e = p.get_channels;                                     %same as line above
+los_c = get_los_channels( p );              %since all receivers are LOS, this merges all coefficients together
+
+p.visualize_clusters;       %only showing 1,1 Rx
+
+%e = p.get_channels;                                     %same as line above
 cn = merge( c ); 
+
+%%
+%when using arrayant, the channel coefficients are 4-d complex, but the
+%rest of the code fails due to an error at the pdp calculation .'
+
+%when not using the arrayant, the channel coefficients are a single complex
+%value... which I do not know if is correct
 
 %%
 % Next, we plot the power-delay profiles for both tracks. We calculate the frequency response of the
