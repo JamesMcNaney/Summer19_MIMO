@@ -45,17 +45,17 @@ a.visualize;
 
 dummy = gridx*gridy;
 l = qd_layout(s);                                       % Create new QuaDRiGa layout
-l.no_rx = gridx*gridy*gridz;                    %james: Initialize set number of receivers (made 3d array of receivers for calculation)        
+l.no_rx = gridx*gridy*gridz;                                  % Initialize set number of receivers (this case is creating          
 l.tx_array = a;                                 %james: these are the two lines that make all channel coefficients 4d complex       
 l.rx_array = a;                                 %james: but break the pdp calculations
-% l.tx_array = qd_arrayant('dipole');           % Dipole antennas at all Rx and Tx
+% l.tx_array = qd_arrayant('dipole');                     % Dipole antennas at all Rx and Tx
 % l.rx_array = l.tx_array;
-l.tx_position(3) = 25;                          % Elevate Tx to 25 m
+l.tx_position(3) = 25;    % Elevate Tx to 25 m
 l.track = qd_track('linear',0,0);
 
 
 %UMal = 'BERLIN_UMa_LOS';                                % LOS scenario name
-%UMan = 'BERLIN_UMa_NLOS';                               % NLOS scenario name
+UMan = 'BERLIN_UMa_NLOS';                               % NLOS scenario name
 UMal = 'LOSonly';
 
 %%
@@ -84,8 +84,8 @@ l.visualize;                                            % Plot the layout
 % Now we create the channel coefficients. The fixing the random seed guarantees repeatable results
 % (i.e. the taps will be at the same positions for both runs).
 
-p = l.init_builder;                                     % Create channel builders
-
+% p = l.init_builder;                                     % Create channel builders
+p = l.init_builder;
 
 %%
 
@@ -94,13 +94,14 @@ p.gen_ssf_parameters;                                   % Generate small-scale f
 %%
 
 %s.use_spherical_waves = 1;                              % Enable drifting (=spherical waves)
-dist = get_distances( p );                               
-
 %d = l.get_channels;                                     %what are the differences between this and the next line?
-c = get_channels( p );                                   %because the channel coefficients differ when generated from layout vs qd_builder
+dist = get_distances( p );
+c = get_channels( p ); 
 los_c = get_los_channels( p );              %since all receivers are LOS, this merges all coefficients together
 
+p.visualize_clusters;       %only showing 1,1 Rx
 
+%e = p.get_channels;                                     %same as line above
 cn = merge( c ); 
 
 %%
