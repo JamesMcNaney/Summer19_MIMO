@@ -1,8 +1,4 @@
-%% Channel model setup and coefficient generation
-% First, we set up the channel model.
-tic
-close all
-clear all
+function newf = proof_of_concept()
 
 gridx = 7;
 gridy = 7;
@@ -36,8 +32,8 @@ a = qd_arrayant('multi', 8, 0.5, 12 );
 a.no_elements = 8;
 a2 = qd_arrayant('omni', 1);
 
-a.visualize;
-a2.visualize;
+% a.visualize;
+% a2.visualize;
 
 %%
 % Second, we create a more complex network layout featuring an elevated transmitter (25 m) and two
@@ -81,7 +77,7 @@ end
 l.set_scenario(UMal);                      % Use UMal scenario
 %%
 set(0,'DefaultFigurePaperSize',[14.5 7.3])              % Adjust paper size for plot
-l.visualize;                                            % Plot the layout
+% l.visualize;                                            % Plot the layout
 
 % compute_directions( l.track );                          % Align antenna direction with track
 
@@ -107,63 +103,6 @@ los_c = get_los_channels( p );              %since all receivers are LOS, this m
 
 cn = merge( c );
 
-% freq_response = zeros(4,4,64,36);
-
-% for i = 1:36
-%     freq_response(:,:,:,i) = cn(1,i).fr(100e6,64);
-% end
-
-%%
-%when using arrayant, the channel coefficients are 4-d complex, but the
-%rest of the code fails due to an error at the pdp calculation .'
-
-%when not using the arrayant, the channel coefficients are a single complex
-%value... which I do not know if is correct
-
-%%
-% Next, we plot the power-delay profiles for both tracks. We calculate the frequency response of the
-% channel and transform it back to time domain by an IFFT. Then, we create a 2D image of the
-% received power at each position of the track. We start with the circular track.
-% 
-% h = cn(1,1).fr( 100e6,512 );                            % Freq.-domain channel
-% h = squeeze(h);                                         % Remove singleton dimensions
-% pdp = 10*log10(abs(ifft(h,[],1).').^2);                 % Power-delay profile
-% 
-% figure('Position',[ 100 , 100 , 760 , 400]);            % New figure
-% imagesc(pdp(:,1:256));
-% 
-% caxis([ max(max(pdp))-50 max(max(pdp))-5 ]); colorbar;  % Figure decorations
-% cm = colormap('hot'); colormap(cm(end:-1:1,:));
-% set(gca,'XTick',1:32:255); set(gca,'XTickLabel',(0:32:256)/100e6*1e6);
-% set(gca,'YTick',1:cn(1).no_snap/8:cn(1).no_snap);
-% set(gca,'YTickLabel', (0:cn(1).no_snap/8:cn(1).no_snap)/cn(1).no_snap * 360 );
-% xlabel('Delay [\mus]'); 
-% title('PDP1');
-% 
-% %%
-% % The X-axis shows the delay in microseconds and the Y-axis shows the position on the circle. For
-% % easier navigation, the position is given in degrees. 0 deg means east (starting point), 90 deg
-% % means north, 180 deg west and 270 deg south. The LOS delay stays constant since the distance to
-% % the Tx is also constant. However, the power of the LOS changes according to the scenario. Also
-% % note, that the NLOS segment has more paths due to the longer delay spread.
-% %
-% % Next, we create the same plot for the linear track. Note the slight increase in the LOS delay and
-% % the high similarity of the first two LOS segments due to the correlated LSPs. Segment change is at
-% % around 6 m.
-% 
-% h = cn(1,2).fr( 100e6,512 );                            % Freq.-domain channel
-% h = squeeze(h);                                         % Remove singleton dimensions
-% pdp = 10*log10(abs(ifft(h,[],1).').^2);                 % Power-delay profile
-% 
-% figure('Position',[ 100 , 100 , 760 , 400]);            % New figure
-% imagesc(pdp(:,1:256));
-% 
-% caxis([ max(max(pdp))-50 max(max(pdp))-5 ]); colorbar;  % Figure decorations
-% cm = colormap('hot'); colormap(cm(end:-1:1,:));
-% set(gca,'XTick',1:32:255); set(gca,'XTickLabel',(0:32:256)/100e6*1e6);
-% set(gca,'YTick',1:cn(2).no_snap/8:cn(2).no_snap);
-% set(gca,'YTickLabel', (0:cn(2).no_snap/8:cn(2).no_snap)/cn(2).no_snap * 20 );
-% xlabel('Delay [\mus]'); 
-% title('PDP2');
-toc
-%current time to run = 
+freq_response = cn(1,1).fr(100e6,64);
+newf = reshape(freq_response,64,8);
+end
