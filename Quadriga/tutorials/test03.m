@@ -32,7 +32,7 @@ s.show_progress_bars = 0;                               % Disable progress bars
 % 
 % a.append_array( a2 );                   % Append the second antenna to the first
 
-a = qd_arrayant('multi', 8, 0.5, 12 );
+a = qd_arrayant('dipole', 8, 0.5, 12 );
 a.no_elements = 8;
 a2 = qd_arrayant('omni', 1);
 
@@ -98,13 +98,13 @@ p.gen_ssf_parameters;                                   % Generate small-scale f
 
 %%
 
-%s.use_spherical_waves = 1;                              % Enable drifting (=spherical waves)
+s.use_spherical_waves = 1;                              % Enable drifting (=spherical waves)
 dist = get_distances( p );                               
 
 %d = l.get_channels;                                     %what are the differences between this and the next line?
 c = get_channels( p );                                   %because the channel coefficients differ when generated from layout vs qd_builder
 los_c = get_los_channels( p );              %since all receivers are LOS, this merges all coefficients together
-
+d = get_channels( l );
 cn = merge( c );
 
 % freq_response = zeros(4,4,64,36);

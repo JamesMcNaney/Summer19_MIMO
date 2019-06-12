@@ -19,7 +19,7 @@ function simpleMIMOsim(varargin)
     par.mod = '16QAM'; % modulation type: 'BPSK','QPSK','16QAM','64QAM'
     par.trials = 1000; % number of Monte-Carlo trials (transmissions)
     par.SNRdB_list = -10:2:20; % list of SNR [dB] values to be simulated
-    %par.detector = {'ZF','bMMSE','uMMSE','ML'}; % define detector(s) to be simulated  
+%     par.detector = {'ZF','bMMSE','uMMSE','ML'}; % define detector(s) to be simulated  
     par.detector = {'ZF'};
   else
       
@@ -79,7 +79,7 @@ function simpleMIMOsim(varargin)
 
   % trials loop
   tic
-  H = proof_of_concept(); 
+%   H = proof_of_concept(); 
   for t=1:par.trials
   
     % generate transmit symbol
@@ -88,8 +88,8 @@ function simpleMIMOsim(varargin)
   
     % generate iid Gaussian channel matrix & noise vector
     n = sqrt(0.5)*(randn(par.MR,1)+1i*randn(par.MR,1));
-%     H = sqrt(0.5)*(randn(par.MR,par.MT)+1i*randn(par.MR,par.MT));
-    H = proof_of_concept(); 
+    H = sqrt(0.5)*(randn(par.MR,par.MT)+1i*randn(par.MR,par.MT));
+%     H = proof_of_concept(); 
     % transmit over noiseless channel (will be used later)
     x = H*s;
   
