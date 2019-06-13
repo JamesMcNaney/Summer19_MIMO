@@ -1,21 +1,14 @@
-% -----------------------------------------------------
-% -- QuaDRiGa channel generator
-% -- 2018 (c) ag753@cornell.edu, studer@cornell.edu
-% -----------------------------------------------------
-
-%close all
-%clear all
-% addpath(genpath('../../main-simulation/channel/QuaDRiGa_2017.08.01_v2.0.0-664/')) %change this to the path where the QuaDRiGa folder lives
+function csi_mat = channel_sim()
 
 %% Set up input parameters
 % feel free to change these parameters
-show = 1; % 1 = generate plots, 0 = don't generate plots
+show = 0; % 1 = generate plots, 0 = don't generate plots
 % rng(1) % set random seed: comment out this line to generate a different channel each time
 par.scenario = 'Freespace'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
 par.fc = 60e9; % carrier frequency [Hz]
 par.BW = 14e6; % bandwidth [Hz]
 par.N = 2048; % number of carriers
-par.B = 128; % number of antennas in the BS (we use a single BS)
+par.B = 64; % number of antennas in the BS (we use a single BS)
 par.U = 8; % number of single-antenna UEs
 
 %% Set up simulation parameters
@@ -70,23 +63,29 @@ end
 l.set_scenario(par.scenario);
 %% Generate channel coefficients
 c = l.get_channels; % Generate channels
-%% Calculating the frequency response for this channel
-
-% Writing the frequency response in the desired way: a matrix corresponding
-% to the user grid, each point with a vector with the number of antennas
-HN = zeros(par.B,par.U,par.N);
-for uu=1:par.U
-    HN(:,uu,:) = c(uu).fr(par.BW,par.N); % Using built-in method to evaluate the frequency response from the channel coefficients
+csi_mat = zeros(64,8);
+for i = 1:8
+    csi_mat(:,i) = (c(i,1).coeff)';
 end
 
-if(show)
-figure(10)
-imagesc(abs(squeeze(fft(HN(:,1,:))))); colorbar
-xlabel('subcarrier')
-ylabel('spatial FFT over BS')
-
-figure(11)
-imagesc((abs(fft(HN(:,:,1))))); colorbar
-xlabel('UE')
-ylabel('spatial FFT over BS')
-end
+%%
+% %% Calculating the frequency response for this channel
+% 
+% % Writing the frequency response in the desired way: a matrix corresponding
+% % to the user grid, each point with a vector with the number of antennas
+% HN = zeros(par.B,par.U,par.N);
+% for uu=1:par.U
+%     HN(:,uu,:) = c(uu).fr(par.BW,par.N); % Using built-in method to evaluate the frequency response from the channel coefficients
+% end
+% 
+% if(show)
+% figure(10)
+% imagesc(abs(squeeze(fft(HN(:,1,:))))); colorbar
+% xlabel('subcarrier')
+% ylabel('spatial FFT over BS')
+% 
+% figure(11)
+% imagesc((abs(fft(HN(:,:,1))))); colorbar
+% xlabel('UE')
+% ylabel('spatial FFT over BS')
+% end
