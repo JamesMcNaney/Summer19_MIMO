@@ -27,8 +27,11 @@ s.show_progress_bars = false;
 
 % UE_x_locs, UE_y_locs, UE_z_locs are column vectors We randomly place UEs
 % in a rectangular  area (units in m)
-UE_x_locs = 50 + 50*rand(par.U,1);
-UE_y_locs = 50*(2*(rand(par.U,1)-0.5));
+% UE_x_locs = 50 + 50*rand(par.U,1);
+% UE_y_locs = 50*(2*(rand(par.U,1)-0.5));
+% UE_z_locs = 1.5*ones(par.U,1);
+UE_x_locs = 20 + 20*rand(par.U,1);
+UE_y_locs = 20*(2*(rand(par.U,1)-0.5));
 UE_z_locs = 1.5*ones(par.U,1);
 % place BS antennas only on y-axis at half wavelength spacing (units in m)
 BS_x_locs = zeros(par.B,1);
@@ -67,7 +70,7 @@ csi_mat = zeros(64,8);
 for i = 1:8
     csi_mat(:,i) = (c(i,1).coeff)';
 end
-
+% csi_mat = normalize(csi_mat,1);
 %%
 % %% Calculating the frequency response for this channel
 % 

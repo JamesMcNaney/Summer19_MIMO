@@ -16,11 +16,11 @@ function simpleMIMOsim(varargin)
     par.runId = 0; % simulation ID (used to reproduce results)
     par.MR = 64; % receive antennas 
     par.MT = 8; % transmit antennas (set not larger than MR!) 
-    par.mod = 'QPSK'; % modulation type: 'BPSK','QPSK','16QAM','64QAM'
-    par.trials = 250; % number of Monte-Carlo trials (transmissions)
-    par.SNRdB_list = -10:2:25; % list of SNR [dB] values to be simulated
+    par.mod = '16QAM'; % modulation type: 'BPSK','QPSK','16QAM','64QAM'
+    par.trials = 1000; % number of Monte-Carlo trials (transmissions)
+    par.SNRdB_list = -10:2:20; % list of SNR [dB] values to be simulated
 %     par.detector = {'ZF','bMMSE','uMMSE','ML'}; % define detector(s) to be simulated  
-    par.detector = {'bMMSE'};
+    par.detector = {'ZF'};
   else
       
     disp('use custom simulation settings and parameters...')    
@@ -31,7 +31,7 @@ function simpleMIMOsim(varargin)
   % -- initialization
   
   % use runId random seed (enables reproducibility)
-  rng(par.runId); 
+%   rng(par.runId); 
 
   % set up Gray-mapped constellation alphabet (according to IEEE 802.11)
   switch (par.mod)
@@ -79,7 +79,7 @@ function simpleMIMOsim(varargin)
 
   % trials loop
   tic
-%   H = channel_sim(); 
+%   H = proof_of_concept(); 
   for t=1:par.trials
   
     % generate transmit symbol
@@ -89,9 +89,7 @@ function simpleMIMOsim(varargin)
     % generate iid Gaussian channel matrix & noise vector
     n = sqrt(0.5)*(randn(par.MR,1)+1i*randn(par.MR,1));
     H = sqrt(0.5)*(randn(par.MR,par.MT)+1i*randn(par.MR,par.MT));
-%     H = (randn(par.MR,par.MT)+1i*randn(par.MR,par.MT));
-%     H = channel_sim();
-%     H = normalize(H,1);
+%     H = channel_sim(); 
     % transmit over noiseless channel (will be used later)
     x = H*s;
   
