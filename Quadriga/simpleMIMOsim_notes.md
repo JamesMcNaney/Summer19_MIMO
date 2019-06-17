@@ -22,5 +22,7 @@ For each trial:
 ![alt text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/quadriga_in_simulation_3.png)
 ---
 ![alt text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/comparing_iidQuadriga_64x8.png)
-
+Testing/comparing QPSK
+![alt text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/comparing_iidQuadriga_64x8_16QAM.png)
+Testing/comparing 16QAM
 ## Plots and figures for some simulations can be found in the tutorials/figures_images folder.
