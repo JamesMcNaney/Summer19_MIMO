@@ -16,10 +16,11 @@ For each trial:
 ### Following are a few of these curves using QuaDRiGa's (normalized) channel coefficients. Changes of the figures come mostly from reducing number of trials and SNR values tested across. There are other figures available in the tutorials/figures_images folder. These plots do not approach zero as quickly as the iid Gaussian estimate.
 
 ![alt text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/quadriga_in_simulation.png)
----
+
 ![alt text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/quadriga_in_simulation_2.png)
----
+
 ![alt text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/quadriga_in_simulation_3.png)
 ---
+![alt text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/comparing_iidQuadriga_64x8.png)
 
 ## Plots and figures for some simulations can be found in the tutorials/figures_images folder.
