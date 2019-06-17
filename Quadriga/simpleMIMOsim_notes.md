@@ -25,4 +25,7 @@ For each trial:
 Testing/comparing QPSK
 ![alt text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/comparing_iidQuadriga_64x8_16QAM.png)
 Testing/comparing 16QAM
+
+Now, when testing different scenarios (I assume 'Freespace' means completely line of sight), I was running into dimension problems with the channel state matrix. This is because QuaDRiGa returns a coefficient for each generated path. There were a total of 25 paths generated with the Berlin NLOS scenario, and these different paths correspond to the paths the signal takes off of multiple scatterers. Since NLOS is one of the strengths of massive MUMIMO, I did not want to simply *choose* a single path's coefficients, so I summed them together. (**I do not know if this is nonsensical or not since I am not sure what the algorithms are supposed to do to multipath signals at the BS on UL**). The following was the result:
+![alt text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/Berlin_NLOS_summed.png)
 ## Plots and figures for some simulations can be found in the tutorials/figures_images folder.
