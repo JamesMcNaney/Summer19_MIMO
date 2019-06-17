@@ -1,5 +1,10 @@
 # This document is an attempt to record my understanding of the **simpleMIMOsim** function Kaipeng provided. It is also my first attempt at becoming more versed in utilizing markdown.
 
+Code being used: 
+* [channel_sim.m](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/channel_sim.m)
+* [simpleMIMOsim.m](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/simpleMIMOsim.m)
+* [quadriga_and_mimosim.m](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/quadriga_and_mimosim.m)
+
 As of June 14, 2019, I am utilizing this function in its default state while trying to integrate channel coefficients derived from the QuaDRiGa program. Therefore, the default simulation parameters are used and replicated in the QuaDRiGa setup. These parameters can be manipulated by the user by altering the corresponding values found within specific properties of the **par** struct. Of note: MR corresponds to the number of elements on the antenna array, MT corresponds to mobile terminals (users), mod corresponds to the modulation type -> alphabet used to transmit symbols, trails to the number of trials, SNRdb_list to the array of SNR values to be tested against, and the detector method to be used. This program is mainly meant to explore the Bit Error Rate (BER) as a function of the SNR and the output of this function (currently) is a plot of this relationship.
 Further non-user-dependent initialization preceeds the *start simulation* stage of the program. A random bitstream is generated such that each trial will have 1 symbol per MT (number of bits being determined by the length needed for the modulation scheme). 
 For each trial:
