@@ -13,5 +13,13 @@ For each trial:
   * determine whether idxhat is the same as the predetermined **idx** from earlier in the simulation loop
   * calculate respective error rates and store them in their respective properties within **res** struct
 * Plot the BER vs SNR curve. 
+### Following are a few of these curves using QuaDRiGa's (normalized) channel coefficients. Changes of the figures come mostly from reducing number of trials and SNR values tested across. There are other figures available in the tutorials/figures_images folder. These plots do not approach zero as quickly as the iid Gaussian estimate.
 
-## Plots for some simulations can be found in the tutorials folder. Will hopefully be learning how to either include the images here or link to them in the near future. (June 15, 2019)
+![alt text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/quadriga_in_simulation.png)
+---
+![alt text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/quadriga_in_simulation_2.png)
+---
+![alt text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/quadriga_in_simulation_3.png)
+---
+
+## Plots and figures for some simulations can be found in the tutorials/figures_images folder.
