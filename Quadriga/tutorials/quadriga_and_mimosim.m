@@ -4,7 +4,7 @@
     par.runId = 0; % simulation ID (used to reproduce results)
     par.MR = 64; % receive antennas 
     par.MT = 8; % transmit antennas (set not larger than MR!) 
-    par.mod = 'QPSK'; % modulation type: 'BPSK','QPSK','16QAM','64QAM'
+    par.mod = '16QAM'; % modulation type: 'BPSK','QPSK','16QAM','64QAM'
     par.trials = 500; % number of Monte-Carlo trials (transmissions)
     par.SNRdB_list = -10:2:25; % list of SNR [dB] values to be simulated
 %     par.detector = {'ZF','bMMSE','uMMSE','ML'}; % define detector(s) to be simulated  
