@@ -88,10 +88,13 @@ function simpleMIMOsim(varargin)
   
     % generate iid Gaussian channel matrix & noise vector
     n = sqrt(0.5)*(randn(par.MR,1)+1i*randn(par.MR,1));
-%     H = sqrt(0.5)*(randn(par.MR,par.MT)+1i*randn(par.MR,par.MT));
-%     H = (randn(par.MR,par.MT)+1i*randn(par.MR,par.MT));
-    H = channel_sim();
-    H = normalize(H,1);
+    if(par.iid == 1)
+        H = sqrt(0.5)*(randn(par.MR,par.MT)+1i*randn(par.MR,par.MT));
+    else
+        H = channel_sim(par);
+        H = normalize(H,1);
+    end
+   
     % transmit over noiseless channel (will be used later)
     x = H*s;
   
