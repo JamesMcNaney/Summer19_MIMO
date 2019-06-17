@@ -11,7 +11,7 @@
     par.detector = {'ZF','bMMSE','uMMSE'};
     % Have not been able to successfully run ML
 
-par.scenario = 'BERLIN_UMa_NLOS'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
+par.scenario = 'Freespace'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
 par.fc = 60e9; % carrier frequency [Hz]
 par.BW = 14e6; % bandwidth [Hz]
 par.N = 2048; % number of carriers
@@ -27,6 +27,6 @@ title('Gaussian iid channel');
 subplot(1,2,2)
 par.iid = 0;
 simpleMIMOsim(par);
-title('QuaDRiGa BERLIN_UMa_NLOS Channel');
+title('QuaDRiGa Freespace Channel');
 
     
