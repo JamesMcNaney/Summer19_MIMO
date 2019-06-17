@@ -68,7 +68,9 @@ l.set_scenario(par.scenario);
 c = l.get_channels; % Generate channels
 csi_mat = zeros(par.B,par.U);
 for i = 1:par.U
-    csi_mat(:,i) = (c(i,1).coeff)';
+     coll = permute(c(i,1).coeff,[2,1,3]);
+     coll = sum(coll,3);
+     csi_mat(:,i) = coll;
 end
 % csi_mat = normalize(csi_mat,1);
 %%
