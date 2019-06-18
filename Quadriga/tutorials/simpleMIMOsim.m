@@ -155,8 +155,12 @@ function simpleMIMOsim(varargin)
   save([ par.simName '_' num2str(par.runId) ],'par','res');    
     
   % -- show results (generates fairly nice Matlab plot) 
+  if(par.iid == 1)
+    marker_style = {'bo-','rs--','mv-.','kp:','g*-','c>--','yx:'};
+  else
+    marker_style = {'go-','cs--','kv-.','kp:','g*-','c>--','yx:'};
+  end
   
-  marker_style = {'bo-','rs--','mv-.','kp:','g*-','c>--','yx:'};
   figure(1)
   for d=1:length(par.detector)
     if d==1
@@ -171,8 +175,15 @@ function simpleMIMOsim(varargin)
   xlabel('average SNR per receive antenna [dB]','FontSize',12)
   ylabel('bit error rate (BER)','FontSize',12)
   axis([min(par.SNRdB_list) max(par.SNRdB_list) 1e-4 1])
-  legend(par.detector,'FontSize',12)
-  set(gca,'FontSize',12)
+%   if(par.iid == 1)
+%       legend(strcat('iid\_',string(par.detector)),'FontSize',12);
+%   else
+%       legend((strcat('QuaDRiGa\_',string(par.detector)),'FontSize',12);
+%   end
+  if(par.iid == 0)
+      legend([strcat('iid\_',string(par.detector)),strcat('QuaDRiGa\_',string(par.detector))],'Fontsize',12);
+      set(gca,'FontSize',12)
+  end
   
 end
 

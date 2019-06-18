@@ -2,7 +2,7 @@
 
 par.simName = 'ERR_MTxMR_16QAM'; % simulation name (used for saving results)
 par.runId = 0; % simulation ID (used to reproduce results)
-par.MR = 64; % receive antennas 
+par.MR = 128; % receive antennas 
 par.MT = 8; % transmit antennas (set not larger than MR!) 
 par.mod = '16QAM'; % modulation type: 'BPSK','QPSK','16QAM','64QAM'
 par.trials = 250; % number of Monte-Carlo trials (transmissions)
@@ -12,23 +12,25 @@ par.detector = {'ZF','bMMSE','uMMSE'};
 % Have not been able to successfully run ML
 
 % To be used in channel_sim.m -> where QuaDRiGa generates coefficients
-par.scenario = 'Freespace'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
-par.fc = 60e9; % carrier frequency [Hz]
-par.BW = 14e6; % bandwidth [Hz]
-par.N = 2048; % number of carriers
+par.scenario = 'mmMAGIC_UMi_NLOS'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
+par.fc = 28e6; % carrier frequency [Hz]
+par.BW = 10e6; % bandwidth [Hz]
+par.N = 1024; % number of carriers
 par.B = par.MR; % number of antennas in the BS (we use a single BS)
 par.U = par.MT; % number of single-antenna UEs
 par.iid = 1;    % simulates Gaussian iid
 
 % Run the simulation
 
-subplot(1,2,1)
-simpleMIMOsim(par);
-title('Gaussian iid channel');
+% subplot(1,2,1)
+simpleMIMOsim(par); hold on;
+% title('Gaussian iid channel');
 
-subplot(1,2,2)
+% subplot(1,2,2)
 par.iid = 0;    % simulates the par.scenario
 simpleMIMOsim(par);
-title('QuaDRiGa Freespace Channel');
+hold off;
+title('Gaussian iid and mmMAGIC\_UMi\_NLOS');
+% title('QuaDRiGa BERLIN\_UMa\_NLOS Channel');
 
     
