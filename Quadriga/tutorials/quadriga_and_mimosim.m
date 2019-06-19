@@ -12,7 +12,7 @@ par.detector = {'ZF','bMMSE','uMMSE'};
 % Have not been able to successfully run ML
 
 % To be used in channel_sim.m -> where QuaDRiGa generates coefficients
-par.scenario = 'BERLIN_UMa_NLOS'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
+par.scenario = 'Freespace'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
 par.fc = 28e6; % carrier frequency [Hz]
 par.BW = 10e6; % bandwidth [Hz]
 par.N = 1024; % number of carriers
