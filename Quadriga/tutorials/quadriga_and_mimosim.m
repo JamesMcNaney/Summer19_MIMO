@@ -1,6 +1,6 @@
 % generate par parameters to be used in simpleMIMOsim and channel_sim
 
-par.simName = 'ERR_MTxMR_16QAM'; % simulation name (used for saving results)
+par.simName = 'ERR_8x128_16QAM'; % simulation name (used for saving results)
 par.runId = 0; % simulation ID (used to reproduce results)
 par.MR = 128; % receive antennas 
 par.MT = 8; % transmit antennas (set not larger than MR!) 
@@ -30,7 +30,7 @@ simpleMIMOsim(par); hold on;
 par.iid = 0;    % simulates the par.scenario
 simpleMIMOsim(par);
 hold off;
-title('Gaussian iid and mmMAGIC\_UMi\_NLOS');
+title(['Gaussian iid and' string(par.scenario)], 'Interpreter', 'none');
 % title('QuaDRiGa BERLIN\_UMa\_NLOS Channel');
 
     
