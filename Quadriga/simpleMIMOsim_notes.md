@@ -43,3 +43,20 @@ Following are more results from the summed coefficients along the multipath dime
 
 
 ## Plots and figures for some simulations can be found in the tutorials/figures_images folder.
+---
+####Notes taken June 24... should probably be put elsewhere
+"The power of the first cluster is further scaled according to the initial KF from the map and cluster powers are normalized so that their sum power is one"
+Different positions of the MT lead to different arrival angles, delay, and phases for each multipath component (MPC).
+Calculate channel coefficients at a constant sample rate that fulfills the sampling theorem
+f_T≥2B_D=4 max⁡〖|Δf_D |=4  max⁡|v|/λ_c 〗
+Appropriate sampling rate is proportional to the maximum speed of the MT.
+Calculate channel coefficients at fixed fpositions with sampling rate f_S, samples per meter. Aka, sample density
+f_S=f_T/max⁡〖|v|  〗 ≥4/λ_c 
+SD=f_S/(λ_c/2)≥2
+Within a segment, LSPs do not change.
+Stated in documentation: UMa scenario had 22m LOS, 48m NLOS segment length
+Calculate the position of the last-bounce scatterer from the initial arrival angles and cluster delays. Update angles/path length for each snapshot. Done for each antenna element separately. 
+After cluster-delays, powers, and angles are known for the initial position, we update their values for each snapshot of the segment. Thus, we get an evolution of the parameters over a short time interval
+At the MT, element positions need to be updated for each snapshot with respect to the MT orientation
+
+
