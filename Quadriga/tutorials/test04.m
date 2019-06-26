@@ -1,107 +1,62 @@
-% -----------------------------------------------------
-% -- QuaDRiGa channel generator
-% -- 2018 (c) ag753@cornell.edu, studer@cornell.edu
-% -----------------------------------------------------
+%% Effects of the Antenna-Orientation
 
-%close all
-%clear all
-% addpath(genpath('../../main-simulation/channel/QuaDRiGa_2017.08.01_v2.0.0-664/')) %change this to the path where the QuaDRiGa folder lives
+%% Model and Antenna Setup
+% Here, we parametrize the simulation. We place the receiver 10 m away from the transmitter and
+% chose the scenario "LOSonly". Thus, no NLOS components are present. The receiver is set up as a
+% multi-element array antenna using both, circular and linear polarization.
 
-%% Set up input parameters
-% feel free to change these parameters
-show = 1; % 1 = generate plots, 0 = don't generate plots
-% rng(1) % set random seed: comment out this line to generate a different channel each time
-par.scenario = 'Freespace'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
-par.fc = 60e9; % carrier frequency [Hz]
-par.BW = 14e6; % bandwidth [Hz]
-par.N = 2048; % number of carriers
-par.B = 128; % number of antennas in the BS (we use a single BS)
-par.U = 8; % number of single-antenna UEs
+clear all
+close all
 
-%% Set up simulation parameters
-% probably don't need to change these parameters
-s = qd_simulation_parameters;
-s.sample_density = 2; % 2 samples per half-wavelength (spacial sampling)
-s.center_frequency = par.fc;
-s.use_absolute_delays = false; % Include delay of the LOS path
-s.use_spherical_waves = true; % No need to use spherical waves if rx and tx are far enough
-s.show_progress_bars = false;
+s = qd_simulation_parameters;                           % New simulation parameters
+s.center_frequency = 30e9;                              % 30 GHz carrier frequency (mmWave regime)
+s.sample_density = 2.5;                                 % 2.5 samples per half-wavelength
+s.use_absolute_delays = 1;                              % Include delay of the LOS path
+s.show_progress_bars = 0;                               % Disable progress bars
 
-%% Define array geometry
-% feel free to change UE_x_locs, UE_y_locs, UE_z_locs, BS_x_locs, BS_y_locs, BS_z_locs
+a = qd_arrayant('3gpp-3d',1,64,30e9,1,pi/4,.5,1,1);    % Create 1x64 3gpp-mmw antenna array
+%%
+t = qd_track('linear',20,0);                        % 20 m track, direction SE
+t.initial_position = [0;0;1.5];                        % Start position
+t.interpolate_positions( 128/20 );                      % Interpolate
+% t.segment_index       = [1,40,90];                      % Assign segments
+t.scenario            = '3GPP_38.901_UMi_LOS';
+t.interpolate_positions( s.samples_per_meter );         % Apply sample density
 
-% BS is tx, UE is rx array
+l = qd_layout( s );                                     % New QuaDRiGa layout
+l.tx_array = a;                                         % Set 3gpp-mmw antenna
+l.tx_array.rotate_pattern(90,'z');
 
-% UE_x_locs, UE_y_locs, UE_z_locs are column vectors We randomly place UEs
-% in a rectangular  area (units in m)
-% UE_x_locs = 50 + 50*rand(par.U,1);
-% UE_y_locs = 50*(2*(rand(par.U,1)-0.5));
-% UE_z_locs = 1.5*ones(par.U,1);
+l.rx_array = qd_arrayant('omni');                       % Set Dipole antenna
+l.tx_position = [10;-5;10];
+l.track = t;                                            % Assign track
 
-ang_delta = 90/par.U;
-if(ang_delta < 5)
-    'Angle between Rx is less than 5 degrees'       % Should act as flag to alert too close of spacing between Rx
-end
+set(0,'DefaultFigurePaperSize',[14.5 7.3])              % Adjust paper size for plot
+l.visualize;                                            % Plot the layout
 
-rx_radius = 50;
-UE_x_locs = zeros(par.U,1);
-UE_y_locs = zeros(par.U,1);
-for i = 1:par.U
-    UE_x_locs(i) = rx_radius*cos((45-ang_delta*i)*pi/180);
-    UE_y_locs(i) = rx_radius*sin((45-ang_delta*i)*pi/180);
-end
-UE_z_locs = 1.5*ones(par.U,1);
+%%
+% l = qd_layout;
+% l.simpar.show_progress_bars = 0;        % Disable progress bar indicator
+% 
+% t = qd_track('linear',20,0);      % Create new track (pi turns the rx by 180 degree)
+% t.initial_position = [0;0;0];               % Set the receiver position
+% t.interpolate_positions( 128/20 );
+% t.scenario = '3GPP_38.901_UMi_LOS';
+% 
+% l.tx_position = [10;-5;10];
+% 
+% l.track = t;
+% 
+% l.tx_array = a;             
+% l.rx_array = qd_arrayant('omni');
+% l.tx_array.rotate_pattern(90,'z');
+% % l.track.no_snapshots = 20;
+% t.set_speed(20);
+% l.visualize; 
+% test = l.get_channels;
+%%
+cn = l.get_channels;                                    % Generate channels
 
-% place BS antennas only on y-axis at half wavelength spacing (units in m)
-BS_x_locs = zeros(par.B,1);
-BS_y_locs = s.wavelength/2*(-(par.B-1)/2:1:(par.B-1)/2)';
-BS_z_locs = 25*ones(par.B,1); % note that the height of the transmitter is 25m
-
-%% Assign geometry to layout object
-% Create new QuaDRiGa layout object
-l = qd_layout(s);
-
-% Trajectories have only one snapshot -> UEs are static
-l.track.no_snapshots = 1;
-l.rx_array = qd_arrayant('omni'); % Omnidirectional UE antennas
-% UEs geometry (UE is rx array)
-l.no_rx = par.U; % Assign the number of UEs
-l.rx_position = [UE_x_locs'; UE_y_locs'; UE_z_locs']; % Write user locations
-
-% Define BS antenna array
-l.tx_array.generate('omni'); % so far, no need to use other antenna
-l.tx_array.no_elements = par.B;
-% place BS antennas only on y-axis at half wavelength spacing, units in m
-l.tx_array.element_position = [BS_x_locs'; BS_y_locs'; BS_z_locs'];
-l.tx_position = [0;0;0]; % make l.tx_array.element_position relative to the origin
-
-% plot scenario
-if(show)
-    l.visualize([],[],0); % Plot the layout
-    view(-33, 60); % Enable 3D view
-end
-
-%% Set the scenario
-l.set_scenario(par.scenario);
-%% Generate channel coefficients
-c = l.get_channels; % Generate channels
-%% Calculating the frequency response for this channel
-
-% Writing the frequency response in the desired way: a matrix corresponding
-% to the user grid, each point with a vector with the number of antennas
-HN = zeros(par.B,par.U,par.N);
-for uu=1:par.U
-    HN(:,uu,:) = c(uu).fr(par.BW,par.N); % Using built-in method to evaluate the frequency response from the channel coefficients
-end
-
-if(show)
-figure(10)
-imagesc(abs(squeeze(fft(HN(:,1,:))))); colorbar
-xlabel('subcarrier')
-ylabel('spatial FFT over BS')
-
-figure(11)
-imagesc((abs(fft(HN(:,:,1))))); colorbar
-xlabel('UE')
-ylabel('spatial FFT over BS')
-end
+t.set_speed( 30 );                                       % Set constant speed
+dist = t.interpolate_movement( s.wavelength/(2*20) );   % Get snapshot positions
+ci = cn.interpolate( dist , 'spline' );                 % Interpolate channels
