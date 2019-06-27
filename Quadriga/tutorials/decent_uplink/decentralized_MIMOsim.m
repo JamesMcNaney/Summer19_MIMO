@@ -11,7 +11,7 @@ if isempty(varargin)
     par.C = 4;
     par.MR = 128; % total receive antennas
     
-    par.MT = 16; % transmit antennas (set not larger than MR!)
+    par.MT = 8; % transmit antennas (set not larger than MR!)
     
     par.beta = par.MT/par.MR;
     % number of clusters (uniformly distributed antennas over C)
@@ -19,10 +19,17 @@ if isempty(varargin)
     % MR/C has to be integer!
 
     par.mod = '16QAM'; % modulation type: 'BPSK','QPSK','16QAM','64QAM'
-    par.trials = 1000; % number of Monte-Carlo trials (transmissions)    
+    par.trials = 100; % number of Monte-Carlo trials (transmissions)    
     
+%% added parameters for QuaDRiGa
+    par.scenario = 'LOSonly'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
+    par.fc = 16e6; % carrier frequency [Hz]
+    par.BW = 10e6; % bandwidth [Hz]
+    par.N = 1024; % number of carriers
+    par.B = par.MR; % number of antennas in the BS (we use a single BS)
+    par.U = par.MT; % number of single-antenna UEs
 %% sim parameters (please read!)
-    par.SNRdB_list = [-15:2:15]; % list of SNR [dB] values to be simulated
+    par.SNRdB_list = [-15:5:30]; % list of SNR [dB] values to be simulated
     par.detector = {...         
          'uMMSE',...
          'uMMSE_decent',...
@@ -80,8 +87,18 @@ for t=1:par.trials
     n = sqrt(0.5)*(randn(par.MR,1)+1i*randn(par.MR,1));
     %         n = randn(par.MR,1);
     % LAMA channel matrix - gaussian with variance 1/MR
-    H = sqrt(0.5/par.MR)*...
-        (randn(par.MR,par.MT)+1i*randn(par.MR,par.MT));
+%     H = sqrt(0.5/par.MR)*...
+%         (randn(par.MR,par.MT)+1i*randn(par.MR,par.MT));
+        H = channel_sim(par);
+        norm_coef = zeros(1,par.MT);                    
+        for i = 1:par.MT
+            for j = 1:par.MR
+                norm_coef(i)=norm_coef(i)+norm(H(j,i)); %sum the 2-norms of each column
+            end
+            norm_coef(i) = norm_coef(i)/par.MR;         %average the 2-norm sum
+            H(:,i) = H(:,i)/norm_coef(i);               %divide each entry of QuaDRiGa channel by avg 2-norm
+            H(:,i) = H(:,i)/var(H(:,i));                %divide by variance of each column...?
+        end
     
     % transmit over noiseless channel (will be used later)
     x_send = H*s;
