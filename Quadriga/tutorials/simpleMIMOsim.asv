@@ -88,24 +88,16 @@ function simpleMIMOsim(varargin)
     s = par.symbols(idx).';
   
     % generate iid Gaussian channel matrix & noise vector
-    % or generate the QuaDRiGa channel -> normalized to the 
-    % average 2-norm per column, such that if the entries in the
-    % column were summed, the sum would be 1
-    
     n = sqrt(0.5)*(randn(par.MR,1)+1i*randn(par.MR,1));
     if(par.iid == 1)
         H = sqrt(0.5)*(randn(par.MR,par.MT)+1i*randn(par.MR,par.MT));
     else
         H = channel_sim(par);
-        norm_coef = zeros(1,par.MT);                    
+%         H = normalize(H);
+        norm_coef = zeros(1,par.MT);
         for i = 1:par.MT
             for j = 1:par.MR
-                norm_coef(i)=norm_coef(i)+norm(H(j,i)); %sum the 2-norms of each column
-            end
-            norm_coef(i) = norm_coef(i)/par.MR;         %average the 2-norm sum
-            H(:,i) = H(:,i)/norm_coef(i);               %divide each entry of QuaDRiGa channel by avg 2-norm
-        end
-        
+                norm_coef(i)=norm_coef(i)+
     end
    
     % transmit over noiseless channel (will be used later)
@@ -182,7 +174,7 @@ function simpleMIMOsim(varargin)
       semilogy(par.SNRdB_list,res.BER(d,:),marker_style{d},'LineWidth',2)
     end
   end
-%   hold off
+  hold off
   grid on
   xlabel('average SNR per receive antenna [dB]','FontSize',12)
   ylabel('bit error rate (BER)','FontSize',12)

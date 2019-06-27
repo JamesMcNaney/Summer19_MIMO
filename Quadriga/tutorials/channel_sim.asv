@@ -1,4 +1,5 @@
-function csi_mat = channel_sim(par)
+% function csi_mat = channel_sim(par)
+function rx_loc = channel_sim(par)
 
 
 %% Set up input parameters
@@ -40,7 +41,7 @@ s.show_progress_bars = false;
 %degrees separation between UEs. Up to a maximum of rand_trials iterations
 
 sep_ang = 5;                                %miminum degrees separation desired
-rand_trials = 100;                           %number of attempts to randomly create angular spacing
+rand_trials = 20;                           %number of attempts to randomly create angular spacing
 count = 0;                                  %compared against rand_trials
 angle_par = 1;                              %stays 1 unless UEs are adequately spaced
 
@@ -63,8 +64,8 @@ if count == rand_trials
     'Angle miminum between UEs NOT met'             
 end
 UE_ang = (pi*UE_ang/180)';              %put angles into radian
-UE_x_locs = UE_dist.*cos(UE_ang);       %'polar' coordinate to rectangular
-UE_y_locs = UE_dist.*sin(UE_ang);       %'polar' coordinate to rectangular
+UE_x_locs = UE_dist.*cos(UE_ang);       %'p
+UE_y_locs = UE_dist.*sin(UE_ang);
 UE_z_locs = 1.5*ones(par.U,1);
 
 % place BS antennas only on y-axis at half wavelength spacing (units in m)
@@ -89,7 +90,7 @@ l.tx_array.no_elements = par.B;
 % place BS antennas only on y-axis at half wavelength spacing, units in m
 l.tx_array.element_position = [BS_x_locs'; BS_y_locs'; BS_z_locs'];
 l.tx_position = [0;0;0]; % make l.tx_array.element_position relative to the origin
-% rx_loc = l.rx_position;
+rx_loc = l.rx_position;
 % plot scenario
 if(show)
     l.visualize([],[],0); % Plot the layout
