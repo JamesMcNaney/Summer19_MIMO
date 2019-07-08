@@ -105,6 +105,7 @@ function simpleMIMOsim(varargin)
             norm_coef(i) = norm_coef(i)/par.MR;         %average the 2-norm sum
             H(:,i) = H(:,i)/norm_coef(i);               %divide each entry of QuaDRiGa channel by avg 2-norm
         end
+%         H = H/par.MR;
         
     end
    
