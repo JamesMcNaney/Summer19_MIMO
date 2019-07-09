@@ -28,9 +28,9 @@ if isempty(varargin)
     par.N = 1024; % number of carriers
     par.B = par.MR; % number of antennas in the BS (we use a single BS)
     par.U = par.MT; % number of single-antenna UEs
-    par.iid = 0;
+%     par.iid = 1;
 %% sim parameters (please read!)
-    par.SNRdB_list = [-15:5:200]; % list of SNR [dB] values to be simulated
+    par.SNRdB_list = [-15:5:40]; % list of SNR [dB] values to be simulated
     par.detector = {...         
          'uMMSE',...
          'uMMSE_decent',...
@@ -88,9 +88,11 @@ for t=1:par.trials
     n = sqrt(0.5)*(randn(par.MR,1)+1i*randn(par.MR,1));
     %         n = randn(par.MR,1);
     % LAMA channel matrix - gaussian with variance 1/MR
-%     H = sqrt(0.5/par.MR)*...
-%         (randn(par.MR,par.MT)+1i*randn(par.MR,par.MT));
-        H = channel_sim(par);
+    if par.iid == 1
+        H = sqrt(0.5/par.MR)*...
+          (randn(par.MR,par.MT)+1i*randn(par.MR,par.MT));
+    else  
+      H = channel_sim(par);
         norm_coef = zeros(1,par.MT);                    
         for i = 1:par.MT
             for j = 1:par.MR
@@ -100,7 +102,7 @@ for t=1:par.trials
             H(:,i) = H(:,i)/norm_coef(i);               %divide each entry of QuaDRiGa channel by avg 2-norm
 %             H(:,i) = H(:,i)/var(H(:,i));                %divide by variance of each column...?
         end
-    
+    end
     % transmit over noiseless channel (will be used later)
     x_send = H*s;
     
@@ -134,9 +136,18 @@ res.ERR = res.ERR/par.trials;
 save([ par.simName '_' num2str(par.runId) ],'par','res');
 
 % -- plot results
-%marker_style = {'ko-','ro-','bs-','bo-','bv-'};
-marker_style = {'bo-','rs--','mv-.','kp:','g*-','c>--','yx:','ko-',...
-    'b^--','r*-.','mo:','kv-','gp--','c*-.','y>:','kx-'};
+% if par.iid == 0
+%     marker_style = {'ko-','ro-','bs-','bo-','bv-'};
+% else
+%     marker_style = {'bo-','rs--','mv-.','kp:','g*-','c>--','yx:','ko-',...
+%     'b^--','r*-.','mo:','kv-','gp--','c*-.','y>:','kx-'};
+% end
+
+if(par.iid == 1)
+    marker_style = {'bo-','rs--','mv-.','kp:','g*-','c>--','yx:'};
+  else
+    marker_style = {'go-','cs--','kv-.','kp:','g*-','c>--','yx:'};
+  end
 
 %figure;
 for d=1:length(par.detector)
@@ -160,7 +171,12 @@ xlabel('average SNR per receive antenna [dB]','FontSize',12);
 %ylabel('symbol error rate (SER)','FontSize',12);
 ylabel('bit error rate (BER)','FontSize',12);
 axis([min(par.SNRdB_list) max(par.SNRdB_list) 1e-3 1]);
-legend(par.detector,'FontSize',12,'location','southwest','interpreter','none');
+% legend(par.detector,'FontSize',12,'location','southwest','interpreter','none');
+
+if(par.iid == 0)
+    legend([strcat('iid_',string(par.detector)),strcat('QuaDRiGa_',string(par.detector))],'Fontsize',12,'Interpreter','none');
+    set(gca,'FontSize',12)
+end
 
 
 end
