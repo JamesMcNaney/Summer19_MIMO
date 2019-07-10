@@ -105,3 +105,9 @@ The rest of the code was mostly left alone, allocating just for parameterization
 ![alt_text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/parC_4comp.png)
 
 ![alt_text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/parC_8comp.png)
+
+![alt_text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/cg_dcg_mf_comp_parC2.png)
+
+![alt_text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/cg_dcg_mf_comp_parC4.png)
+
+![alt_text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/cg_dcg_mf_comp_parC8.png)
