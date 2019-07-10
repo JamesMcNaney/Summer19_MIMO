@@ -100,7 +100,7 @@ for t=1:par.trials
             end
             norm_coef(i) = norm_coef(i)/par.MT;         %average the 2-norm sum
             H(:,i) = H(:,i)/norm_coef(i);               %divide each entry of QuaDRiGa channel by avg 2-norm
-%             H(:,i) = H(:,i)/var(H(:,i));                %divide by variance of each column...?
+%             H(:,i) = H(:,i)*sqrt(var(H(:,i)));                %divide by variance of each column...?
         end
     end
     % transmit over noiseless channel (will be used later)
