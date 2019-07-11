@@ -1,5 +1,5 @@
  par.runId = 0; % simulation ID (used to reproduce results)
-    par.C = 8;
+    par.C = 4;
     par.MR = 128; % total receive antennas
     
     par.MT = 8; % transmit antennas (set not larger than MR!)
@@ -13,8 +13,8 @@
     par.trials = 300; % number of Monte-Carlo trials (transmissions)    
     
 %% added parameters for QuaDRiGa
-    par.scenario = 'LOSonly'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
-    par.fc = 16e6; % carrier frequency [Hz]
+    par.scenario = 'mmMAGIC_UMi_NLOS'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
+    par.fc = 26e6; % carrier frequency [Hz]
     par.BW = 10e6; % bandwidth [Hz]
     par.N = 1024; % number of carriers
     par.B = par.MR; % number of antennas in the BS (we use a single BS)
@@ -45,4 +45,4 @@ hold on
 par.iid = 0;
 decentralized_MIMOsim(par);
 hold off
-title(['Par.C =' num2str(par.C)]);
+title(['Par.C =' num2str(par.C) par.scenario], 'Interpreter','none');

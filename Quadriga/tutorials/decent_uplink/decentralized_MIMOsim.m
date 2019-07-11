@@ -93,8 +93,11 @@ for t=1:par.trials
           (randn(par.MR,par.MT)+1i*randn(par.MR,par.MT));
 %       H = sqrt(0.5)*...
 %           (randn(par.MR,par.MT)+1i*randn(par.MR,par.MT));
+%         H = channel_sim(par);
+%          H = normalize(H);
     else  
       H = channel_sim(par);
+%       H = normalize(H);
         norm_coef = zeros(1,par.MT);                    
         for i = 1:par.MT
             for j = 1:par.MR
@@ -152,7 +155,7 @@ if(par.iid == 1)
     marker_style = {'go-','cs--','kv-.','kp:','g*-','c>--','yx:'};
   end
 
-%figure;
+%% figure
 for d=1:length(par.detector)
     if d==1
         semilogy(par.SNRdB_list,res.BER(d,:),...
