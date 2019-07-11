@@ -117,3 +117,33 @@ If these figures are correct, then the suggested decentralized approach seems to
 ![alt_text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/iid_gaussian_coef.png)
 
 Also, the scale of this distribution is different than that of the simpleMIMOsim. simpleMIMOsim had an iid Gaussian that had entries with an average 2-norm of ~1. This distribution has an average 2-norm closer to 1/par.MR = 1/128 = .0078 -> product of multiplying by the variance 1/MR. However, multiplying by the variance of the Quadriga coefficients showed that it was not good... should they be multiplied by 1/par.MR?
+
+Change made to code:
+```Matlab
+    else  
+      H = channel_sim(par);
+        norm_coef = zeros(1,par.MT);                    
+        for i = 1:par.MT
+            for j = 1:par.MR
+                norm_coef(i)=norm_coef(i)+norm(H(j,i)); %sum the 2-norms of each column
+            end
+            norm_coef(i) = norm_coef(i)/par.MR;         %average the 2-norm sum
+            H(:,i) = H(:,i)/norm_coef(i);               %divide each entry of QuaDRiGa channel by avg 2-norm
+%             H(:,i) = H(:,i)*sqrt(var(H(:,i)));                %divide by variance of each column...?
+%             H = H/par.MR;
+        end
+    end
+```
+the norm_coef is divided by par.MR (since MR is the number of antenna elements) rather than par.MT. The effects are as follows
+
+![alt_text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/changed_MT_to_MR_parC2.png)
+
+![alt_text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/changed_MT_to_MR_parC4.png)
+
+![alt_text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/changed_MT_to_MR_parC8.png)
+
+![alt_text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/uumse_update_parC2.png)
+
+![alt_text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/uumse_update_parC4.png)
+
+![alt_text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/uumse_update_parC8.png)
