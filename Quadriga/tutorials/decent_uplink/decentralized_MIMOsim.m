@@ -91,6 +91,8 @@ for t=1:par.trials
     if par.iid == 1
         H = sqrt(0.5/par.MR)*...
           (randn(par.MR,par.MT)+1i*randn(par.MR,par.MT));
+%       H = sqrt(0.5)*...
+%           (randn(par.MR,par.MT)+1i*randn(par.MR,par.MT));
     else  
       H = channel_sim(par);
         norm_coef = zeros(1,par.MT);                    
@@ -98,9 +100,10 @@ for t=1:par.trials
             for j = 1:par.MR
                 norm_coef(i)=norm_coef(i)+norm(H(j,i)); %sum the 2-norms of each column
             end
-            norm_coef(i) = norm_coef(i)/par.MT;         %average the 2-norm sum
+            norm_coef(i) = norm_coef(i)/par.MR;         %average the 2-norm sum
             H(:,i) = H(:,i)/norm_coef(i);               %divide each entry of QuaDRiGa channel by avg 2-norm
 %             H(:,i) = H(:,i)*sqrt(var(H(:,i)));                %divide by variance of each column...?
+%             H = H/par.MR;
         end
     end
     % transmit over noiseless channel (will be used later)

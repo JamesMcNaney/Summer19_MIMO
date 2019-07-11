@@ -10,7 +10,7 @@
     % MR/C has to be integer!
 
     par.mod = '16QAM'; % modulation type: 'BPSK','QPSK','16QAM','64QAM'
-    par.trials = 300; % number of Monte-Carlo trials (transmissions)    
+    par.trials = 100; % number of Monte-Carlo trials (transmissions)    
     
 %% added parameters for QuaDRiGa
     par.scenario = 'LOSonly'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
