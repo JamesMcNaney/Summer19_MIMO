@@ -147,3 +147,15 @@ the norm_coef is divided by par.MR (since MR is the number of antenna elements) 
 ![alt_text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/uumse_update_parC4.png)
 
 ![alt_text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/uumse_update_parC8.png)
+
+---
+
+### I also noticed that the carrier frequency's effects on the Quadriga coefficients can also affect their performance:
+
+![alt_text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/parC4_Freespace_fc30e6_ummse.png)
+
+![alt_text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/parC4_Freespace_fc60e6_ummse.png)
+
+![alt_text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/parC4_Freespace_fc10e9_ummse.png)
+
+![alt_text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/parC4_mmMagic_fc30e6.png)
