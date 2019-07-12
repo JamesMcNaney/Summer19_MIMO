@@ -305,7 +305,14 @@ end
 if par.plot
     
     % - BER results
-    marker_style = {'kx-','bo:','rs--','mv-.','gp-.','bs--','y*--'};
+    
+  if(par.channel == 'quadriga')
+    marker_style = {'bo-','rs--','mv-.','kp:','g*-','c>--','yx:'};
+  else
+    marker_style = {'go-','cs--','kv-.','kp:','g*-','c>--','yx:'};
+  end
+    
+%     marker_style = {'kx-','bo:','rs--','mv-.','gp-.','bs--','y*--'};
     h = figure(1);
     for d=1:length(par.precoder)
         semilogy(par.NTPdB_list,res.BER(d,:),marker_style{d},'LineWidth',2);
@@ -321,8 +328,10 @@ if par.plot
     if length(par.NTPdB_list) > 1
         axis([min(par.NTPdB_list) max(par.NTPdB_list) 1e-3 1]);
     end
-    legend(par.precoder,'FontSize',12,'location','northeast')
-    set(gca,'FontSize',12);
+    if (par.iid == 0)
+        legend([strcat('rayleigh', '_', par.precoder) strcat(par.channel, '_', par.precoder)],'FontSize',12,'location','northeast','Interpreter','none')
+        set(gca,'FontSize',12);
+    end
     if par.save
         % save eps figure (in color and with a reasonable bounding box)
         print(h,'-loose','-depsc',[ 'results/',par.simName '_' num2str(par.runId) ])
