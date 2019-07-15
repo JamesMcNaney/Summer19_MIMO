@@ -39,7 +39,7 @@ s.show_progress_bars = false;
 %creating a randomization of UE's that guarantees outside of sep_ang
 %degrees separation between UEs. Up to a maximum of rand_trials iterations
 
-sep_ang = 5;                                %miminum degrees separation desired
+sep_ang = 1;                                %miminum degrees separation desired
 rand_trials = 100;                           %number of attempts to randomly create angular spacing
 count = 0;                                  %compared against rand_trials
 angle_par = 1;                              %stays 1 unless UEs are adequately spaced

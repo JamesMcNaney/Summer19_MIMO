@@ -329,7 +329,7 @@ if par.plot
         axis([min(par.NTPdB_list) max(par.NTPdB_list) 1e-3 1]);
     end
     if (par.iid == 0)
-        legend([strcat('rayleigh', '_', par.precoder) strcat(par.channel, '_', par.precoder)],'FontSize',12,'location','northeast','Interpreter','none')
+        legend([strcat('rayleigh', '_', par.precoder) strcat(par.channel, '_', par.precoder)],'FontSize',12,'location','southwest','Interpreter','none')
         set(gca,'FontSize',12);
     end
     if par.save

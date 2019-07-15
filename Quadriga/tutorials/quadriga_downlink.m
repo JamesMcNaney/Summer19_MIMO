@@ -1,8 +1,8 @@
 par.runId = 0;              % simulation ID (used to reproduce results)
 par.U = 8;                 % number of single-antenna users
-par.B = 128;                % number of base-station antennas (B>>U)
+par.B = 1024;                % number of base-station antennas (B>>U)
 par.T = 10;                  % number of time slots
-par.C = 16;                  % number of clusters
+par.C = 2;                  % number of clusters
 par.S = par.B/par.C;
 par.mod = '16QAM';          % modulation type: 'BPSK','QPSK','16QAM','64QAM','8PSK'
 par.trials = 1e2;           % number of Monte-Carlo trials (transmissions)
@@ -40,4 +40,4 @@ par.iid = 0;
 downlink(par);
 hold off
 
-title(strcat(par.scenario, ' fc = ', num2str(par.fc),' par.mod = ',par.mod, ' par.C =', num2str(par.C)),'Interpreter', 'none');
+title(strcat(par.scenario, ' users = ', num2str(par.U),' par.mod = ',par.mod, ' par.C =', num2str(par.C)),'Interpreter', 'none');
