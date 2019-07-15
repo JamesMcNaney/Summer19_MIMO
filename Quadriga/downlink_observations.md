@@ -29,23 +29,20 @@ Editted the following code to the downlink simulation Kaipeng provided me. Added
 
 Like with the uplink, the carrier frequency through which Quadriga generates the channel coefficients affects the effectiveness of the different downlink algorithms.
 
+<img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/berlinUmaNlos_fc10e6.png" width="400" height="300"> <img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/berlinUmaNlos_fc20e6.png" width="400" height="300">
 
-![alt_text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/berlinUmaNlos_fc10e6.png)
+<img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/berlinUmaNlos_fc30e6.png" width="400" height="300"> <img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/berlinUmaNlos_fc10e9.png" width="400" height="300">
 
-![alt_text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/berlinUmaNlos_fc20e6.png)
+<img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/freespace_fc10e6.png" width="400" height="300"> <img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/freespace_fc20e6.png" width="400" height="300">
 
-![alt_text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/berlinUmaNlos_fc30e6.png)
+<img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/freespace_fc60e6.png" width="400" height="300"> <img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/freespace_fc30e9.png" width="400" height="300">
 
-![alt_text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/berlinUmaNlos_fc10e9.png)
+<img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/mmMagicLOS_fc10e6.png" width="400" height="300"> <img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/mmMagicLOS_fc10e9.png" width="400" height="300">
 
-![alt_text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/freespace_fc10e6.png)
+## Also went on to test the difference between the encoded par.mod types.
 
-![alt_text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/freespace_fc20e6.png)
+<img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/berlinUmaLos_fc20e6_bpsk.png" width="400" height="300"> <img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/berlinUmaLos_fc20e6_qpsk.png" width="400" height="300">
 
-![alt_text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/freespace_fc60e6.png)
+<img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/berlinUmaLos_fc20e6_8psk.png" width="400" height="300"> <img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/berlinUmaLos_fc20e6_16qam.png" width="400" height="300">
 
-![alt_text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/freespace_fc30e9.png)
-
-![alt_text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/mmMagicLOS_fc10e6.png)
-
-![alt_text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/mmMagicLOS_fc10e9.png)
+<img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/berlinUmaLos_fc20e6_64qam.png" width="400" height="300">
