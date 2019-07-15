@@ -25,7 +25,7 @@ Editted the following code to the downlink simulation Kaipeng provided me. Added
             end
             H = H';
     end
-    ```
+ ```
 
 Like with the uplink, the carrier frequency through which Quadriga generates the channel coefficients affects the effectiveness of the different downlink algorithms.
 
