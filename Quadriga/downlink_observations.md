@@ -46,3 +46,13 @@ Like with the uplink, the carrier frequency through which Quadriga generates the
 <img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/berlinUmaLos_fc20e6_8psk.png" width="400" height="300"> <img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/berlinUmaLos_fc20e6_16qam.png" width="400" height="300">
 
 <img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/berlinUmaLos_fc20e6_64qam.png" width="400" height="300">
+
+## Also, there are some interesting effects from altering the number of decentralized divisions 
+
+<img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/freespace_fc20e6_16qam_parC2.png" width="400" height="300"> <img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/freespace_fc20e6_16qam_parC4.png" width="400" height="300">
+
+<img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/freespace_fc20e6_16qam_parC8.png" width="400" height="300"> <img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/freespace_fc20e6_16qam_parC16.png" width="400" height="300">
+
+<img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/berlinUmaNlos_fc20e6_16qam_parC2.png" width="400" height="300"> <img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/berlinUmaNlos_fc20e6_16qam_parC4.png" width="400" height="300">
+
+<img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/berlinUmaNlos_fc20e6_16qam_parC8.png" width="400" height="300"> <img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/berlinUmaNlos_fc20e6_16qam_parC16.png" width="400" height="300">
