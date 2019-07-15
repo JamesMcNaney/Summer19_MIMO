@@ -4,7 +4,7 @@ par.B = 128;                % number of base-station antennas (B>>U)
 par.T = 10;                  % number of time slots
 par.C = 2;                  % number of clusters
 par.S = par.B/par.C;
-par.mod = '8PSK';          % modulation type: 'BPSK','QPSK','16QAM','64QAM','8PSK'
+par.mod = '16QAM';          % modulation type: 'BPSK','QPSK','16QAM','64QAM','8PSK'
 par.trials = 1e2;           % number of Monte-Carlo trials (transmissions)
 par.NTPdB_list = -16:2:14;  % list of normalized transmit power [dB] values
 par.rho2 = 1;               % rho^2=1 (should NOT affect your results!)
@@ -28,7 +28,7 @@ par.steplen = 1; % step size for CD
 par.damping = 1; % damping CD energy caused by approximation
 
 %to be deleted/changed, trying to integrated quadriga
-par.scenario = 'BERLIN_UMa_LOS'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
+par.scenario = 'BERLIN_UMa_NLOS'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
 par.fc = 20e6; % carrier frequency [Hz]
 par.BW = 10e6; % bandwidth [Hz]
 par.N = 1024; % number of carriers
@@ -40,4 +40,4 @@ par.iid = 0;
 downlink(par);
 hold off
 
-title(strcat(par.scenario, ' fc = ', num2str(par.fc),' par.mod = ',par.mod),'Interpreter', 'none');
+title(strcat(par.scenario, ' fc = ', num2str(par.fc),' par.mod = ',par.mod, ' par.C =', num2str(par.C)),'Interpreter', 'none');
