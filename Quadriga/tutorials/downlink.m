@@ -34,7 +34,7 @@ if isempty(varargin)
     par.rho2 = 1;               % rho^2=1 (should NOT affect your results!)
     %par.precoder = {'MRT','SMRT','ZF','WF','PD_WF','FD_WF','DP_legacy'};    
     par.precoder = {'MRT','WF','FD_WF'}; 
-    par.channel = 'quadriga';   % channel model 'rayleigh', 'los', 'cellfree' 'quadriga'
+    par.channel = 'rayleigh';   % channel model 'rayleigh', 'los', 'cellfree' 'quadriga'
     par.betaest = 'pilot';      % 'pilot', 'genie'
     par.save = false;           % save results (true,false)
     par.plot = true;            % plot results (true,false)
@@ -292,7 +292,7 @@ res.TIME = res.TIME/par.trials;
 
 %res.TIME 
 %res.RxPower
-res.TxPower
+res.TxPower;
 
 % -- save final results (par and res structures)
 
@@ -329,7 +329,8 @@ if par.plot
         axis([min(par.NTPdB_list) max(par.NTPdB_list) 1e-3 1]);
     end
     if (par.iid == 0)
-        legend([strcat('rayleigh', '_', par.precoder) strcat(par.channel, '_', par.precoder)],'FontSize',12,'location','southwest','Interpreter','none')
+%         legend([strcat('rayleigh', '_', par.precoder) strcat(par.channel, '_', par.precoder)],'FontSize',12,'location','southwest','Interpreter','none')
+        legend([strcat(num2str(par.array_v), 'x', num2str(par.array_h))],'FontSize',12,'location','southwest','Interpreter','none')
         set(gca,'FontSize',12);
     end
     if par.save

@@ -68,9 +68,22 @@ UE_y_locs = UE_dist.*sin(UE_ang);       %'polar' coordinate to rectangular
 UE_z_locs = 1.5*ones(par.U,1);
 
 % place BS antennas only on y-axis at half wavelength spacing (units in m)
-BS_x_locs = zeros(par.B,1);
-BS_y_locs = s.wavelength/2*(-(par.B-1)/2:1:(par.B-1)/2)';
-BS_z_locs = 25*ones(par.B,1); % note that the height of the transmitter is 25m
+% BS_x_locs = zeros(par.B,1);
+% BS_y_locs = s.wavelength/2*(-(par.B-1)/2:1:(par.B-1)/2)';
+% BS_z_locs = 25*ones(par.B,1); % note that the height of the transmitter is 25m
+
+% place BS antennas as a 2D array
+BS_x_locs = zeros(par.array_v,par.array_h);
+BS_y_locs = s.wavelength/2*(-(par.array_h-1)/2:1:(par.array_h-1)/2);
+BS_z_locs = (s.wavelength/2*(-(par.array_v-1)/2:1:(par.array_v-1)/2))';
+
+BS_y_locs = kron(ones(par.array_v,1),BS_y_locs);
+BS_z_locs = kron(ones(1,par.array_h),BS_z_locs);
+
+BS_x_locs = reshape(BS_x_locs',128,1);
+BS_y_locs = reshape(BS_y_locs',128,1);
+BS_z_locs = reshape(BS_z_locs',128,1);
+
 
 %% Assign geometry to layout object
 % Create new QuaDRiGa layout object
