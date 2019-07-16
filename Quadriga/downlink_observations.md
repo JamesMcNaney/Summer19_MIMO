@@ -26,6 +26,7 @@ Editted the following code to the downlink simulation Kaipeng provided me. Added
             H = H';
     end
  ```
+channel_sim is the same generator that has been used in the simpleMIMOsim and decentralized simulator. The coefficients are normalized in the same way that was described in [this update.](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/observations_asof_July9.md) Since this simulator is on downlink, the channel coefficient matrix needs to be transposed.
 
 Like with the uplink, the carrier frequency through which Quadriga generates the channel coefficients affects the effectiveness of the different downlink algorithms.
 
@@ -56,3 +57,5 @@ Like with the uplink, the carrier frequency through which Quadriga generates the
 <img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/berlinUmaNlos_fc20e6_16qam_parC2.png" width="400" height="300"> <img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/berlinUmaNlos_fc20e6_16qam_parC4.png" width="400" height="300">
 
 <img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/berlinUmaNlos_fc20e6_16qam_parC8.png" width="400" height="300"> <img src="https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/downlink_figs/berlinUmaNlos_fc20e6_16qam_parC16.png" width="400" height="300">
+
+For the quadriga_MRT algorithm to start being more viable/close to the rayleigh approximation, the carrier frequency needs to approach the gigahertz regime. In the case of the mmMAGIC scenario, the quadriga_MRT algorithm actually surpasses the rayleigh_MRT in the gigahertz regime. The par.mod decisions yield expected results -> worse BER as the par.mod gets more complicated. The par.C parameter also yields results that are expected/found in previous simulator: the fewer the partitions, the better the results. The partitions were tested on a carrier frequency of 20 MHz, so if the carrier frequency was raised, there would be better results, but I thought this frequency would give a good demonstration/movement of the BER curves.
