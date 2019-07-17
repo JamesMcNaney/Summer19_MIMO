@@ -1,12 +1,13 @@
 function csi_mat = channel_sim(par)
 
-
+% par.array_v = 2;
+% par.array_h = 64;
 %% Set up input parameters
 % feel free to change these parameters
 show = 0; % 1 = generate plots, 0 = don't generate plots
 % rng(1) % set random seed: comment out this line to generate a different channel each time
 % par.scenario = 'Freespace'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
-% par.fc = 60e9; % carrier frequency [Hz]
+% par.fc = 3.5e9; % carrier frequency [Hz]
 % par.BW = 14e6; % bandwidth [Hz]
 % par.N = 2048; % number of carriers
 % par.B = 128; % number of antennas in the BS (we use a single BS)
@@ -78,7 +79,7 @@ BS_y_locs = s.wavelength/2*(-(par.array_h-1)/2:1:(par.array_h-1)/2);
 BS_z_locs = (s.wavelength/2*(-(par.array_v-1)/2:1:(par.array_v-1)/2))';
 
 BS_y_locs = kron(ones(par.array_v,1),BS_y_locs);
-BS_z_locs = kron(ones(1,par.array_h),BS_z_locs);
+BS_z_locs = 25*ones(par.array_v, par.array_h) + kron(ones(1,par.array_h),BS_z_locs);
 
 BS_x_locs = reshape(BS_x_locs',128,1);
 BS_y_locs = reshape(BS_y_locs',128,1);
