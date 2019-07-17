@@ -306,16 +306,16 @@ if par.plot
     
     % - BER results
     
-  if(par.channel == 'quadriga')
+%   if(par.iid == 0)
     marker_style = {'bo-','rs--','mv-.','kp:','g*-','c>--','yx:'};
-  else
-    marker_style = {'go-','cs--','kv-.','kp:','g*-','c>--','yx:'};
-  end
+%   else
+%     marker_style = {'go-','cs--','kv-.','kp:','g*-','c>--','yx:'};
+%   end
     
 %     marker_style = {'kx-','bo:','rs--','mv-.','gp-.','bs--','y*--'};
     h = figure(1);
     for d=1:length(par.precoder)
-        semilogy(par.NTPdB_list,res.BER(d,:),marker_style{d},'LineWidth',2);
+        semilogy(par.NTPdB_list,res.BER(d,:),marker_style{d+par.iter},'LineWidth',2);
         if (d==1)
             hold on
         end
@@ -328,9 +328,10 @@ if par.plot
     if length(par.NTPdB_list) > 1
         axis([min(par.NTPdB_list) max(par.NTPdB_list) 1e-3 1]);
     end
+%     par.legend = [par.legend string(strcat(num2str(par.array_v), 'x', num2str(par.array_h)))];
     if (par.iid == 0)
 %         legend([strcat('rayleigh', '_', par.precoder) strcat(par.channel, '_', par.precoder)],'FontSize',12,'location','southwest','Interpreter','none')
-        legend([strcat(num2str(par.array_v), 'x', num2str(par.array_h))],'FontSize',12,'location','southwest','Interpreter','none')
+        legend(par.legend,'FontSize',12,'location','southwest','Interpreter','none');
         set(gca,'FontSize',12);
     end
     if par.save

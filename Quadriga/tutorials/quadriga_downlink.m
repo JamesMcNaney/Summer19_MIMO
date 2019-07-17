@@ -4,14 +4,14 @@ par.runId = 0;              % simulation ID (used to reproduce results)
 par.U = 8;                 % number of single-antenna users
 par.B = 128;                % number of base-station antennas (B>>U)
 par.T = 10;                  % number of time slots
-par.C = 2;                  % number of clusters
+par.C = 8;                  % number of clusters
 par.S = par.B/par.C;
 par.mod = '16QAM';          % modulation type: 'BPSK','QPSK','16QAM','64QAM','8PSK'
 par.trials = 1e2;           % number of Monte-Carlo trials (transmissions)
 par.NTPdB_list = -16:2:14;  % list of normalized transmit power [dB] values
 par.rho2 = 1;               % rho^2=1 (should NOT affect your results!)
 %par.precoder = {'MRT','SMRT','ZF','WF','PD_WF','FD_WF','DP_legacy'};    
-par.precoder = {'MRT'}; 
+par.precoder = {'PD_WF'}; 
 par.channel = 'quadriga';   % channel model 'rayleigh', 'los', 'cellfree' 'quadriga'
 par.iid = 1;
 par.betaest = 'pilot';      % 'pilot', 'genie'
@@ -30,7 +30,7 @@ par.steplen = 1; % step size for CD
 par.damping = 1; % damping CD energy caused by approximation
 
 %to be deleted/changed, trying to integrated quadriga
-par.scenario = 'Freespace'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
+par.scenario = 'LOSonly'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
 par.fc = 3.5e9; % carrier frequency [Hz]
 par.BW = 10e6; % bandwidth [Hz]
 par.N = 1024; % number of carriers
@@ -42,21 +42,26 @@ par.array_v = 1;        % number of vertical antenna elements, assuming total
 
 par.array_h = par.B/par.array_v;
 
-
+par.iter = 0;
 downlink(par);
 hold on
 par.array_v = 2;
 par.array_h = par.B/par.array_v;
+par.iter = 1;
 downlink(par);
 hold on
 par.array_v = 4;
 par.array_h = par.B/par.array_v;
+par.iter = 2;
 downlink(par);
 hold on
 par.array_v = 8;
 par.array_h = par.B/par.array_v;
+par.iter = 3;
+par.legend = ["1x128", "2x64", "4x32", "8x16"];
 par.iid = 0;
 downlink(par);
 hold off
 
 % title(strcat(par.scenario, ' users = ', num2str(par.U),' par.mod = ',par.mod, ' par.C =', num2str(par.C)),'Interpreter', 'none');
+title(strcat(par.scenario, ' precoder = ', par.precoder, ' par.C =', num2str(par.C)),'Interpreter', 'none');
