@@ -161,7 +161,7 @@ the norm_coef is divided by par.MR (since MR is the number of antenna elements) 
 ![alt_text](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/figures_images/parC4_mmMagic_fc30e6.png)
 
 
-### Updated figures using 1x128 array, 3.5 GHz carrier frequency, 10 MHz bandwidth:
+# Updated figures using 1x128 array, 3.5 GHz carrier frequency, 10 MHz bandwidth:
 
 ![](https://github.com/JamesMcNaney/Summer19_MIMO/blob/master/Quadriga/tutorials/decent_uplink/3.5G_Freespace_parC2_cg.png)
 
