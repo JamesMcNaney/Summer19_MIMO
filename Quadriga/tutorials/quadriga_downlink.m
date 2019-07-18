@@ -7,7 +7,7 @@ par.T = 10;                  % number of time slots
 par.C = 8;                  % number of clusters
 par.S = par.B/par.C;
 par.mod = '16QAM';          % modulation type: 'BPSK','QPSK','16QAM','64QAM','8PSK'
-par.trials = 1e2;           % number of Monte-Carlo trials (transmissions)
+par.trials = 2e2;           % number of Monte-Carlo trials (transmissions)
 par.NTPdB_list = -16:2:14;  % list of normalized transmit power [dB] values
 par.rho2 = 1;               % rho^2=1 (should NOT affect your results!)
 %par.precoder = {'MRT','SMRT','ZF','WF','PD_WF','FD_WF','DP_legacy'};    
@@ -45,16 +45,16 @@ par.array_h = par.B/par.array_v;
 par.iter = 0;
 downlink(par);
 hold on
-% par.array_v = 2;
-% par.array_h = par.B/par.array_v;
-% par.iter = 1;
-% downlink(par);
-% hold on
-% par.array_v = 4;
-% par.array_h = par.B/par.array_v;
-% par.iter = 2;
-% downlink(par);
-% hold on
+par.array_v = 2;
+par.array_h = par.B/par.array_v;
+par.iter = 1;
+downlink(par);
+hold on
+par.array_v = 4;
+par.array_h = par.B/par.array_v;
+par.iter = 2;
+downlink(par);
+hold on
 par.array_v = 8;
 par.array_h = par.B/par.array_v;
 par.iter = 3;
