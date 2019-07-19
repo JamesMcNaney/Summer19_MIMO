@@ -4,15 +4,15 @@ par.runId = 0;              % simulation ID (used to reproduce results)
 par.U = 8;                 % number of single-antenna users
 par.B = 128;                % number of base-station antennas (B>>U)
 par.T = 10;                  % number of time slots
-par.C = 8;                  % number of clusters
+par.C = 4;                  % number of clusters
 par.S = par.B/par.C;
 par.mod = '16QAM';          % modulation type: 'BPSK','QPSK','16QAM','64QAM','8PSK'
-par.trials = 2e2;           % number of Monte-Carlo trials (transmissions)
+par.trials = 100;           % number of Monte-Carlo trials (transmissions)
 par.NTPdB_list = -16:2:14;  % list of normalized transmit power [dB] values
 par.rho2 = 1;               % rho^2=1 (should NOT affect your results!)
 %par.precoder = {'MRT','SMRT','ZF','WF','PD_WF','FD_WF','DP_legacy'};    
-par.precoder = {'PD_WF'}; 
-par.channel = 'quadriga';   % channel model 'rayleigh', 'los', 'cellfree' 'quadriga'
+par.precoder = {'WF'}; 
+par.channel = 'rayleigh';   % channel model 'rayleigh', 'los', 'cellfree' 'quadriga'
 par.iid = 1;
 par.betaest = 'pilot';      % 'pilot', 'genie'
 par.save = false;           % save results (true,false)
@@ -45,22 +45,24 @@ par.array_h = par.B/par.array_v;
 par.iter = 0;
 downlink(par);
 hold on
+par.channel = 'quadriga';
+par.iid = 0;
 par.array_v = 2;
 par.array_h = par.B/par.array_v;
 par.iter = 1;
 downlink(par);
-hold on
-par.array_v = 4;
-par.array_h = par.B/par.array_v;
-par.iter = 2;
-downlink(par);
-hold on
-par.array_v = 8;
-par.array_h = par.B/par.array_v;
-par.iter = 3;
-par.legend = ["1x128", "2x64", "4x32", "8x16"];
-par.iid = 0;
-downlink(par);
+% hold on
+% par.array_v = 4;
+% par.array_h = par.B/par.array_v;
+% par.iter = 2;
+% downlink(par);
+% hold on
+% par.array_v = 8;
+% par.array_h = par.B/par.array_v;
+% par.iter = 3;
+% par.legend = ["1x128", "2x64", "4x32", "8x16"];
+% par.iid = 0;
+% downlink(par);
 hold off
 
 % title(strcat(par.scenario, ' users = ', num2str(par.U),' par.mod = ',par.mod, ' par.C =', num2str(par.C)),'Interpreter', 'none');

@@ -66,7 +66,8 @@ end
 UE_ang = (pi*UE_ang/180)';              %put angles into radian
 UE_x_locs = UE_dist.*cos(UE_ang);       %'polar' coordinate to rectangular
 UE_y_locs = UE_dist.*sin(UE_ang);       %'polar' coordinate to rectangular
-UE_z_locs = 1.5*ones(par.U,1);
+z_r = randi([1,5],par.U,1);
+UE_z_locs = 1.5*z_r;
 
 % place BS antennas only on y-axis at half wavelength spacing (units in m)
 % BS_x_locs = zeros(par.B,1);

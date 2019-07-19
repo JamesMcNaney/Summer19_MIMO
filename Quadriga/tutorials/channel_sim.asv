@@ -1,17 +1,17 @@
 function csi_mat = channel_sim(par)
 
-% par.array_v = 8;
-% par.array_h = 16;
+par.array_v = 8;
+par.array_h = 16;
 %% Set up input parameters
 % feel free to change these parameters
-show = 0; % 1 = generate plots, 0 = don't generate plots
-% rng(1) % set random seed: comment out this line to generate a different channel each time
-% par.scenario = 'Freespace'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
-% par.fc = 3.5e9; % carrier frequency [Hz]
-% par.BW = 10e6; % bandwidth [Hz]
-% par.N = 1024; % number of carriers
-% par.B = 128; % number of antennas in the BS (we use a single BS)
-% par.U = 8; % number of single-antenna UEs
+show = 1; % 1 = generate plots, 0 = don't generate plots
+rng(1) % set random seed: comment out this line to generate a different channel each time
+par.scenario = 'Freespace'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
+par.fc = 3.5e9; % carrier frequency [Hz]
+par.BW = 10e6; % bandwidth [Hz]
+par.N = 1024; % number of carriers
+par.B = 128; % number of antennas in the BS (we use a single BS)
+par.U = 8; % number of single-antenna UEs
 
 %% Set up simulation parameters
 % probably don't need to change these parameters
@@ -66,8 +66,8 @@ end
 UE_ang = (pi*UE_ang/180)';              %put angles into radian
 UE_x_locs = UE_dist.*cos(UE_ang);       %'polar' coordinate to rectangular
 UE_y_locs = UE_dist.*sin(UE_ang);       %'polar' coordinate to rectangular
-z_r = randi([1,5],par.U,1);
-UE_z_locs = 1.5*z_r;
+z_r = randi([-5,5],10,1)
+UE_z_locs = 1.5*ones(par.U,1);
 
 % place BS antennas only on y-axis at half wavelength spacing (units in m)
 % BS_x_locs = zeros(par.B,1);
@@ -93,8 +93,6 @@ l = qd_layout(s);
 
 % Trajectories have only one snapshot -> UEs are static
 l.track.no_snapshots = 1;
-
-l.track(1,1) = qd_track('linear', 50 );
 l.rx_array = qd_arrayant('omni'); % Omnidirectional UE antennas
 % UEs geometry (UE is rx array)
 l.no_rx = par.U; % Assign the number of UEs
@@ -117,11 +115,6 @@ end
 l.set_scenario(par.scenario);
 %% Generate channel coefficients
 c = l.get_channels; % Generate channels
-% cb = l.init_builder;                                    % Initialize channel builder object
-% gen_ssf_parameters( cb );                               % Generate small-scale-fading parameters
-% c = get_channels( cb );                                 % Get channel coefficients
-% cn = merge(c2);
-c(8,1).coeff = c(8,1).coeff(:,:,:,1);
 csi_mat = zeros(par.B,par.U);
 for i = 1:par.U
      coll = permute(c(i,1).coeff,[2,1,3]);

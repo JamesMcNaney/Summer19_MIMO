@@ -182,7 +182,8 @@ for t=1:par.trials
         case 'cellfree'
             [H] = cellfree(par);      
         case 'quadriga'
-            H = channel_sim(par);
+%             H = channel_sim(par);
+            H = test04(par);
             norm_coef = zeros(1,par.U);                    
             for i = 1:par.U
                 for j = 1:par.B
@@ -306,11 +307,11 @@ if par.plot
     
     % - BER results
     
-%   if(par.iid == 0)
+  if(par.iid == 0)
     marker_style = {'bo-','rs--','mv-.','kp:','g*-','c>--','yx:'};
-%   else
-%     marker_style = {'go-','cs--','kv-.','kp:','g*-','c>--','yx:'};
-%   end
+  else
+    marker_style = {'go-','cs--','kv-.','kp:','g*-','c>--','yx:'};
+  end
     
 %     marker_style = {'kx-','bo:','rs--','mv-.','gp-.','bs--','y*--'};
     h = figure(1);
@@ -328,10 +329,9 @@ if par.plot
     if length(par.NTPdB_list) > 1
         axis([min(par.NTPdB_list) max(par.NTPdB_list) 1e-3 1]);
     end
-%     par.legend = [par.legend string(strcat(num2str(par.array_v), 'x', num2str(par.array_h)))];
     if (par.iid == 0)
-%         legend([strcat('rayleigh', '_', par.precoder) strcat(par.channel, '_', par.precoder)],'FontSize',12,'location','southwest','Interpreter','none')
-        legend(par.legend,'FontSize',12,'location','southwest','Interpreter','none');
+        legend([strcat('rayleigh', '_', par.precoder) strcat(par.channel, '_', par.precoder)],'FontSize',12,'location','southwest','Interpreter','none')
+%         legend(par.legend,'FontSize',12,'location','southwest','Interpreter','none');
         set(gca,'FontSize',12);
     end
     if par.save
