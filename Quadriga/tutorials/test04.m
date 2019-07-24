@@ -1,7 +1,7 @@
 function csi_mat = channel_sim(par)
 
-% par.array_v = 8;
-% par.array_h = 16;
+% par.array_v = 1;
+% par.array_h = 128;
 %% Set up input parameters
 % feel free to change these parameters
 show = 0; % 1 = generate plots, 0 = don't generate plots
@@ -40,8 +40,8 @@ s.show_progress_bars = false;
 %creating a randomization of UE's that guarantees outside of sep_ang
 %degrees separation between UEs. Up to a maximum of rand_trials iterations
 
-sep_ang = 1;                                %miminum degrees separation desired
-rand_trials = 100;                           %number of attempts to randomly create angular spacing
+sep_ang = 5;                                %miminum degrees separation desired
+rand_trials = 100;                          %number of attempts to randomly create angular spacing
 count = 0;                                  %compared against rand_trials
 angle_par = 1;                              %stays 1 unless UEs are adequately spaced
 
@@ -66,8 +66,8 @@ end
 UE_ang = (pi*UE_ang/180)';              %put angles into radian
 UE_x_locs = UE_dist.*cos(UE_ang);       %'polar' coordinate to rectangular
 UE_y_locs = UE_dist.*sin(UE_ang);       %'polar' coordinate to rectangular
-z_r = randi([1,5],par.U,1);
-UE_z_locs = 1.5*z_r;
+z_r = randi([0,5],par.U,1);
+UE_z_locs = 4*z_r + 1.5;
 
 % place BS antennas only on y-axis at half wavelength spacing (units in m)
 % BS_x_locs = zeros(par.B,1);
@@ -82,9 +82,9 @@ BS_z_locs = (s.wavelength/2*(-(par.array_v-1)/2:1:(par.array_v-1)/2))';
 BS_y_locs = kron(ones(par.array_v,1),BS_y_locs);
 BS_z_locs = 25*ones(par.array_v, par.array_h) + kron(ones(1,par.array_h),BS_z_locs);
 
-BS_x_locs = reshape(BS_x_locs',par.B,1);
-BS_y_locs = reshape(BS_y_locs',par.B,1);
-BS_z_locs = reshape(BS_z_locs',par.B,1);
+BS_x_locs = reshape(BS_x_locs',par.U,1);
+BS_y_locs = reshape(BS_y_locs',par.U,1);
+BS_z_locs = reshape(BS_z_locs',par.U,1);
 
 
 %% Assign geometry to layout object
@@ -92,9 +92,37 @@ BS_z_locs = reshape(BS_z_locs',par.B,1);
 l = qd_layout(s);
 
 % Trajectories have only one snapshot -> UEs are static
-l.track.no_snapshots = 1;
+% l.track.no_snapshots = 1;
 
-l.track(1,1) = qd_track('linear', 50 );
+l.track(1,1) = qd_track('circular',20*pi);
+l.track(1,1).name = 'Rx1';                              % Set the MT1 name
+
+l.track(1,2) = qd_track('circular',20*pi);
+l.track(1,2).name = 'Rx2';                              % Set the MT1 name
+
+l.track(1,3) = qd_track('circular',20*pi);
+l.track(1,3).name = 'Rx3';                              % Set the MT1 name
+
+l.track(1,4) = qd_track('circular',20*pi);
+l.track(1,4).name = 'Rx4';                              % Set the MT1 name
+
+l.track(1,5) = qd_track('circular',20*pi);
+l.track(1,5).name = 'Rx5';                              % Set the MT1 name
+
+l.track(1,6) = qd_track('circular',20*pi);
+l.track(1,6).name = 'Rx6';                              % Set the MT1 name
+
+l.track(1,7) = qd_track('circular',20*pi);
+l.track(1,7).name = 'Rx7';                              % Set the MT1 name
+
+l.track(1,8) = qd_track('circular',20*pi);
+l.track(1,8).name = 'Rx8';                              % Set the MT1 name
+
+
+
+% l.track(1,1) = qd_track('circular', 20*pi );
+% l.track(1,2) = qd_track('circular', 20*pi );
+
 l.rx_array = qd_arrayant('omni'); % Omnidirectional UE antennas
 % UEs geometry (UE is rx array)
 l.no_rx = par.U; % Assign the number of UEs
@@ -117,16 +145,23 @@ end
 l.set_scenario(par.scenario);
 %% Generate channel coefficients
 c = l.get_channels; % Generate channels
+% cn = merge(c);
 % cb = l.init_builder;                                    % Initialize channel builder object
 % gen_ssf_parameters( cb );                               % Generate small-scale-fading parameters
 % c = get_channels( cb );                                 % Get channel coefficients
 % cn = merge(c2);
-c(8,1).coeff = c(8,1).coeff(:,:,:,1);
-csi_mat = zeros(par.B,par.U);
+% c(8,1).coeff = c(8,1).coeff(:,:,:,1);
+c_squeeze = zeros(par.B,c(1,1).no_snap,par.U);
 for i = 1:par.U
-     coll = permute(c(i,1).coeff,[2,1,3]);
-     coll = sum(coll,3);
-     csi_mat(:,i) = coll;
+    c_squeeze(:,:,i) = squeeze(c(i,1).coeff);
+end
+    
+csi_mat = ones(par.B,par.U,size(c_squeeze,2));
+for i = 1:size(csi_mat,3)
+%      coll = permute(c(i,1).coeff,[2,1,3,4]);
+%      coll = sum(coll,3);
+     coll = permute(c_squeeze,[1,3,2]);
+     csi_mat(:,:,i) = coll(:,:,i);
 end
 % csi_mat = normalize(csi_mat,1);
 %%

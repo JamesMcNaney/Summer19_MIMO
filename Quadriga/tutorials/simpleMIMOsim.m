@@ -96,7 +96,10 @@ function simpleMIMOsim(varargin)
     if(par.iid == 1)
         H = sqrt(0.5)*(randn(par.MR,par.MT)+1i*randn(par.MR,par.MT));
     else
-        H = channel_sim(par);
+%         H = channel_sim(par);
+        H = test04(par);
+        H = H(:,:,1);
+        H = squeeze(H);
         norm_coef = zeros(1,par.MT);                    
         for i = 1:par.MT
             for j = 1:par.MR
