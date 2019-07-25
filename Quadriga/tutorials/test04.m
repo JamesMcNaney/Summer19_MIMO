@@ -1,4 +1,4 @@
-function csi_mat = channel_sim(par)
+function csi_mat = test04(par)
 
 % par.array_v = 1;
 % par.array_h = 128;
@@ -82,9 +82,9 @@ BS_z_locs = (s.wavelength/2*(-(par.array_v-1)/2:1:(par.array_v-1)/2))';
 BS_y_locs = kron(ones(par.array_v,1),BS_y_locs);
 BS_z_locs = 25*ones(par.array_v, par.array_h) + kron(ones(1,par.array_h),BS_z_locs);
 
-BS_x_locs = reshape(BS_x_locs',par.U,1);
-BS_y_locs = reshape(BS_y_locs',par.U,1);
-BS_z_locs = reshape(BS_z_locs',par.U,1);
+BS_x_locs = reshape(BS_x_locs',par.B,1);
+BS_y_locs = reshape(BS_y_locs',par.B,1);
+BS_z_locs = reshape(BS_z_locs',par.B,1);
 
 
 %% Assign geometry to layout object
@@ -117,11 +117,6 @@ l.track(1,7).name = 'Rx7';                              % Set the MT1 name
 
 l.track(1,8) = qd_track('circular',20*pi);
 l.track(1,8).name = 'Rx8';                              % Set the MT1 name
-
-
-
-% l.track(1,1) = qd_track('circular', 20*pi );
-% l.track(1,2) = qd_track('circular', 20*pi );
 
 l.rx_array = qd_arrayant('omni'); % Omnidirectional UE antennas
 % UEs geometry (UE is rx array)

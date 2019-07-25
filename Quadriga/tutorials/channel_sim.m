@@ -1,17 +1,17 @@
 function csi_mat = channel_sim(par)
 
-par.array_v = 8;
-par.array_h = 16;
+% par.array_v = 8;
+% par.array_h = 16;
 %% Set up input parameters
 % feel free to change these parameters
-show = 1; % 1 = generate plots, 0 = don't generate plots
-rng(1) % set random seed: comment out this line to generate a different channel each time
-par.scenario = 'Freespace'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
-par.fc = 3.5e9; % carrier frequency [Hz]
-par.BW = 10e6; % bandwidth [Hz]
-par.N = 1024; % number of carriers
-par.B = 128; % number of antennas in the BS (we use a single BS)
-par.U = 8; % number of single-antenna UEs
+show = 0; % 1 = generate plots, 0 = don't generate plots
+% rng(1) % set random seed: comment out this line to generate a different channel each time
+% par.scenario = 'Freespace'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
+% par.fc = 3.5e9; % carrier frequency [Hz]
+% par.BW = 10e6; % bandwidth [Hz]
+% par.N = 1024; % number of carriers
+% par.B = 128; % number of antennas in the BS (we use a single BS)
+% par.U = 8; % number of single-antenna UEs
 
 %% Set up simulation parameters
 % probably don't need to change these parameters
@@ -40,7 +40,7 @@ s.show_progress_bars = false;
 %creating a randomization of UE's that guarantees outside of sep_ang
 %degrees separation between UEs. Up to a maximum of rand_trials iterations
 
-sep_ang = 1;                                %miminum degrees separation desired
+sep_ang = 5;                                %miminum degrees separation desired
 rand_trials = 100;                           %number of attempts to randomly create angular spacing
 count = 0;                                  %compared against rand_trials
 angle_par = 1;                              %stays 1 unless UEs are adequately spaced
@@ -66,8 +66,8 @@ end
 UE_ang = (pi*UE_ang/180)';              %put angles into radian
 UE_x_locs = UE_dist.*cos(UE_ang);       %'polar' coordinate to rectangular
 UE_y_locs = UE_dist.*sin(UE_ang);       %'polar' coordinate to rectangular
-z_r = randi([1,5],par.U,1);
-UE_z_locs = 1.5*z_r;
+z_r = randi([0,5],par.U,1);
+UE_z_locs = 4*z_r + 1.5;
 
 % place BS antennas only on y-axis at half wavelength spacing (units in m)
 % BS_x_locs = zeros(par.B,1);
