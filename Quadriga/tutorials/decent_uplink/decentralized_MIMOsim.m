@@ -11,7 +11,7 @@ if isempty(varargin)
     par.C = 2;
     par.MR = 128; % total receive antennas
     
-    par.MT = 8; % transmit antennas (set not larger than MR!)
+    par.MT = 16; % transmit antennas (set not larger than MR!)
     
     par.beta = par.MT/par.MR;
     % number of clusters (uniformly distributed antennas over C)
@@ -79,6 +79,9 @@ bits = randi([0 1],par.MT,par.Q,par.trials);
 for t=1:par.trials
     complete = 100*t/par.trials;
     disp([num2str(complete,'%.3f') '% completed'])
+    if complete == 93
+        test = 1;
+    end
     
     % generate transmit symbol
     idx = bi2de(bits(:,:,t),'left-msb')+1;
@@ -149,11 +152,11 @@ save([ par.simName '_' num2str(par.runId) ],'par','res');
 %     'b^--','r*-.','mo:','kv-','gp--','c*-.','y>:','kx-'};
 % end
 
-if(par.iid == 1)
-    marker_style = {'bo-','rs--','mv-.','kp:','g*-','c>--','yx:'};
-  else
-    marker_style = {'go-','cs--','kv-.','kp:','g*-','c>--','yx:'};
-  end
+% if(par.iid == 1)
+%     marker_style = {'bo-','rs--','mv-.','kp:','g*-','c>--','yx:'};
+%   else
+    marker_style = {'go-','cs--','kv-.','bo-','rs--','kp:','g*-','c>--','yx:'};
+%   end
 
 %% figure
 for d=1:length(par.detector)
@@ -179,10 +182,11 @@ ylabel('bit error rate (BER)','FontSize',12);
 axis([min(par.SNRdB_list) max(par.SNRdB_list) 1e-3 1]);
 % legend(par.detector,'FontSize',12,'location','southwest','interpreter','none');
 
-if(par.iid == 0)
-    legend([strcat('iid_',string(par.detector)),strcat('QuaDRiGa_',string(par.detector))],'Fontsize',12,'Interpreter','none');
+% if(par.iid == 0)
+%     legend([strcat('iid_',string(par.detector)),strcat('QuaDRiGa_',string(par.detector))],'Fontsize',12,'Interpreter','none');
+    legend(string(par.detector),'Fontsize',12,'Interpreter','none');    
     set(gca,'FontSize',12)
-end
+% end
 
 
 end
