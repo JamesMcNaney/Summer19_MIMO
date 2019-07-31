@@ -5,7 +5,7 @@ function csi_mat = channel_sim(par)
 %% Set up input parameters
 % feel free to change these parameters
 show = 0; % 1 = generate plots, 0 = don't generate plots
-% rng(1) % set random seed: comment out this line to generate a different channel each time
+rng(16) % set random seed: comment out this line to generate a different channel each time
 % par.scenario = 'Freespace'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
 % par.fc = 3.5e9; % carrier frequency [Hz]
 % par.BW = 10e6; % bandwidth [Hz]

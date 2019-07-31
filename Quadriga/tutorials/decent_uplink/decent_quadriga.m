@@ -10,10 +10,10 @@
     % MR/C has to be integer!
 
     par.mod = '16QAM'; % modulation type: 'BPSK','QPSK','16QAM','64QAM'
-    par.trials = 250; % number of Monte-Carlo trials (transmissions)    
+    par.trials = 500; % number of Monte-Carlo trials (transmissions)    
     
 %% added parameters for QuaDRiGa
-    par.scenario = 'mmMAGIC_UMi_LOS'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
+    par.scenario = 'Freespace'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
     par.fc = 3.5e9; % carrier frequency [Hz]
     par.BW = 10e6; % bandwidth [Hz]
     par.N = 1024; % number of carriers
@@ -21,7 +21,7 @@
     par.U = par.MT; % number of single-antenna UEs
     par.normalize = 1;
 %% sim parameters (please read!)
-    par.SNRdB_list = [-15:5:20]; % list of SNR [dB] values to be simulated
+    par.SNRdB_list = [-15:1:15]; % list of SNR [dB] values to be simulated
     par.detector = {...         
          'uMMSE',...
          'uMMSE_decent',...
