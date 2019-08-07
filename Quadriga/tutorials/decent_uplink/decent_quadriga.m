@@ -15,7 +15,7 @@ par.runId = 0; % simulation ID (used to reproduce results)
     par.trials = 500; % number of Monte-Carlo trials (transmissions)    
     
 %% added parameters for QuaDRiGa
-    par.scenario = 'Freespace'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
+    par.scenario = 'WINNER_UMi_B1_NLOS'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
     par.fc = 3.5e9; % carrier frequency [Hz]
     par.BW = 10e6; % bandwidth [Hz]
     par.N = 1024; % number of carriers
@@ -23,7 +23,7 @@ par.runId = 0; % simulation ID (used to reproduce results)
     par.U = par.MT; % number of single-antenna UEs
 
 %% sim parameters (please read!)
-    par.SNRdB_list = [-30:1:5]; % list of SNR [dB] values to be simulated
+    par.SNRdB_list = [-30:.5:5]; % list of SNR [dB] values to be simulated
     par.detector = {...         
          'uMMSE',...
          'uMMSE_decent',...
@@ -34,7 +34,7 @@ par.runId = 0; % simulation ID (used to reproduce results)
     
     
     % CG
-    par.iteration = 4; % number of iteration for CG
+    par.iteration = 5; % number of iteration for CG
     par.normalize = 1;
     par.simName = ['results/' num2str(par.MR) 'x' num2str(par.MT)...
         '_' num2str(par.C) 'clusters_' num2str(par.trials) 'trials'];
