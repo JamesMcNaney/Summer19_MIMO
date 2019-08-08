@@ -53,7 +53,7 @@ end
 % -- initialization
 
 % use runId random seed (improved reproducibility)
-rng(par.runId,'twister');
+% rng(par.runId,'twister');
 
 % Define symbols
 par = symbolizer(par);
@@ -75,6 +75,7 @@ res.ERR = zeros(length(par.detector),length(par.SNRdB_list));
 % generate random bit stream (antenna x bit x trial)
 bits = randi([0 1],par.MT,par.Q,par.trials);
 
+
 % trials loop
 for t=1:par.trials
     complete = 100*t/par.trials;
@@ -95,6 +96,21 @@ for t=1:par.trials
     if par.iid == 1
         H = sqrt(0.5/par.MR)*...
           (randn(par.MR,par.MT)+1i*randn(par.MR,par.MT));
+%       H = (randn(par.MR,par.MT)+1i*randn(par.MR,par.MT));
+%       accum = zeros(par.MR,par.MT);
+%       for i = 1:par.MR
+%           for j = 1:par.MT
+%               accum(i,j) = norm(H(i,j));
+%           end
+%       end
+%       accum2 = zeros(1,par.MT);
+%       for i = 1:par.MT
+%           accum2(i) = sum(accum(:,i))/par.MR;
+%       end
+%       par.test = par.test + sum(accum2)/par.MT;
+%       if t == 999
+%           dummy = 1;
+%       end
 %       H = sqrt(0.5)*...
 %           (randn(par.MR,par.MT)+1i*randn(par.MR,par.MT));
 %         H = channel_sim(par);
@@ -108,9 +124,7 @@ for t=1:par.trials
                 norm_coef(i)=norm_coef(i)+norm(H(j,i)); %sum the 2-norms of each column
             end
             norm_coef(i) = norm_coef(i)/par.MR;         %average the 2-norm sum
-            H(:,i) = H(:,i)/norm_coef(i);               %divide each entry of QuaDRiGa channel by avg 2-norm
-%             H(:,i) = H(:,i)*sqrt(var(H(:,i)));                %divide by variance of each column...?
-%             H = H/par.MR;
+            H(:,i) = H(:,i)/norm_coef(i)*.07833; 
         end
     end
     % transmit over noiseless channel (will be used later)
