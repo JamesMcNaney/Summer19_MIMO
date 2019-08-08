@@ -153,20 +153,18 @@ save([ par.simName '_' num2str(par.runId) ],'par','res');
 %     'b^--','r*-.','mo:','kv-','gp--','c*-.','y>:','kx-'};
 % end
 
-if par.iteration == 5
-    marker_style = {'b+-'};
-end
-if par.iteration == 6
-        marker_style = {'bx-'};
-end
-
 if par.iteration == 4
+    marker_style = {'rs.'};
+else if par.iteration == 5
+        marker_style = {'rsx'};
+    else
+
 % if(par.iid == 1)
 %     marker_style = {'bo-','rs--','mv-.','kp:','g*-','c>--','yx:'};
 %   else
     marker_style = {'go-','cs--','kv-.','bo-','rs--','kp:','g*-','c>--','yx:'};
 %   end
-end
+    end
 
 
 %% figure
@@ -193,12 +191,11 @@ ylabel('bit error rate (BER)','FontSize',12);
 axis([min(par.SNRdB_list) max(par.SNRdB_list) 1e-3 1]);
 % legend(par.detector,'FontSize',12,'location','southwest','interpreter','none');
 
-if par.iteration == 4
 % if(par.iid == 0)
 %     legend([strcat('iid_',string(par.detector)),strcat('QuaDRiGa_',string(par.detector))],'Fontsize',12,'Interpreter','none');
     legend(string(par.detector),'Fontsize',12,'Interpreter','none');    
     set(gca,'FontSize',12)
 % end
-end
+
 
 end

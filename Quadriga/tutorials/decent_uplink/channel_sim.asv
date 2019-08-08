@@ -88,9 +88,9 @@ BS_z_locs = reshape(BS_z_locs',par.B,1);
 
 %%
 
-% UE_x_locs = par.UE_x_locs;
-% UE_y_locs = par.UE_y_locs;
-% UE_z_locs = par.UE_z_locs;
+UE_x_locs = par.UE_x_locs;
+UE_y_locs = par.UE_y_locs;
+UE_z_locs = par.UE_z_locs;
 
 %% Assign geometry to layout object
 % Create new QuaDRiGa layout object
