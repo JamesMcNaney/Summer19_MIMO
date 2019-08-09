@@ -94,9 +94,8 @@ for t=1:par.trials
     %         n = randn(par.MR,1);
     % LAMA channel matrix - gaussian with variance 1/MR
     if par.iid == 1
-%       H = sqrt(0.5/par.MR)*...
-%           (randn(par.MR,par.MT)+1i*randn(par.MR,par.MT));
-      H = randn(par.MR,par.MT)+1i*randn(par.MR,par.MT);
+      H = sqrt(0.5/par.MR)*...
+          (randn(par.MR,par.MT)+1i*randn(par.MR,par.MT));
       accum = zeros(par.MR,par.MT);
       for i = 1:par.MR
           for j = 1:par.MT
@@ -115,28 +114,28 @@ for t=1:par.trials
     else  
       H = channel_sim(par);
 %       H = normalize(H);
-%         norm_coef = zeros(1,par.MT);                    
-%         for i = 1:par.MT
-%             for j = 1:par.MR
-%                 norm_coef(i)=norm_coef(i)+norm(H(j,i)); %sum the 2-norms of each column
-%             end
-%             norm_coef(i) = norm_coef(i)/par.MR;         %average the 2-norm sum
-%             H(:,i) = H(:,i)/norm_coef(i)*.07833; 
-%         end
-%         accum  = zeros(par.MR,par.MT);
-%       for i = 1:par.MR
-%           for j = 1:par.MT
-%               accum(i,j) = norm(H(i,j));
-%           end
-%       end
-%       accum2 = zeros(1,par.MT);
-%       for i = 1:par.MT
-%           accum2(i) = sum(accum(:,i))/par.MR;
-%       end
-%       par.test = par.test + sum(accum2)/par.MT;
-%       if t == 99
-%           dummy = 1;
-%       end
+        norm_coef = zeros(1,par.MT);                    
+        for i = 1:par.MT
+            for j = 1:par.MR
+                norm_coef(i)=norm_coef(i)+norm(H(j,i)); %sum the 2-norms of each column
+            end
+            norm_coef(i) = norm_coef(i)/par.MR;         %average the 2-norm sum
+            H(:,i) = H(:,i)/norm_coef(i)*.07833; 
+        end
+        accum  = zeros(par.MR,par.MT);
+      for i = 1:par.MR
+          for j = 1:par.MT
+              accum(i,j) = norm(H(i,j));
+          end
+      end
+      accum2 = zeros(1,par.MT);
+      for i = 1:par.MT
+          accum2(i) = sum(accum(:,i))/par.MR;
+      end
+      par.test = par.test + sum(accum2)/par.MT;
+      if t == 99
+          dummy = 1;
+      end
     end
     % transmit over noiseless channel (will be used later)
     x_send = H*s;
