@@ -12,7 +12,7 @@ par.runId = 0; % simulation ID (used to reproduce results)
     % MR/C has to be integer!
 
     par.mod = '16QAM'; % modulation type: 'BPSK','QPSK','16QAM','64QAM'
-    par.trials = 100000; % number of Monte-Carlo trials (transmissions)    
+    par.trials = 2000; % number of Monte-Carlo trials (transmissions)    
     
 %% added parameters for QuaDRiGa
     par.scenario = 'Freespace'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
@@ -47,11 +47,17 @@ par.runId = 0; % simulation ID (used to reproduce results)
 par.test = 0;
     
 %%
-par.iid = 1;            %value of 1: iid Gaussian csi. value of 0: Quadriga
+par.iid = 0;            %value of 1: iid Gaussian csi. value of 0: Quadriga
 par.array_v = 1;
 par.array_h = par.B/par.array_v;
+par.shuffle = 0;
 decentralized_MIMOsim(par);
 hold on
+par.shuffle = 1;
+decentralized_MIMOsim(par);
+% hold on
+% par.iid = 0;
+% decentralized_MIMOsim(par);
 % par.detector = {'DCG'};
 % par.iteration = 5;
 % par.iid = 0;

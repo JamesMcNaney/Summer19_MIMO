@@ -1,6 +1,6 @@
 % rng(21) % set random seed: comment out this line to generate a different channel each time
 
-par.scenario = 'Freespace'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
+par.scenario = '3GPP_38.901_UMi_NLOS'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
 par.fc = 3.5e9; % carrier frequency [Hz]
 par.BW = 10e6; % bandwidth [Hz]
 par.N = 1024; % number of carriers
@@ -8,7 +8,7 @@ par.B = 128; % number of antennas in the BS (we use a single BS)
 par.U = 16; % number of single-antenna UEs
 par.array_v = 1;
 par.array_h = 128;
-par.trials = 100;
+par.trials = 4000;
 csi_batch = zeros(par.B,par.U,par.trials);
 
 %% Set up simulation parameters
@@ -41,6 +41,8 @@ BS_x_locs = reshape(BS_x_locs',par.B,1);
 BS_y_locs = reshape(BS_y_locs',par.B,1);
 BS_z_locs = reshape(BS_z_locs',par.B,1);
 
+%%
+test_graph = zeros(3,par.U,par.trials);
 %%
 % Create new QuaDRiGa layout object
 l = qd_layout(s);
@@ -76,6 +78,7 @@ while(angle_par)   %while less than rand_trials run and UEs don't pass spacing
         angle_par = 0;
     end
 end
+angle_par = 1;
 UE_ang = (pi*UE_ang/180)';              %put angles into radian
 UE_x_locs = UE_dist.*cos(UE_ang);       %'polar' coordinate to rectangular
 UE_y_locs = UE_dist.*sin(UE_ang);       %'polar' coordinate to rectangular
@@ -87,7 +90,7 @@ UE_z_locs = 1.5*ones(par.U,1);
 l.rx_array = qd_arrayant('omni'); % Omnidirectional UE antennas
 l.rx_position = [UE_x_locs'; UE_y_locs'; UE_z_locs']; % Write user locations
 
-
+test_graph(:,:,trial) = [UE_x_locs'; UE_y_locs'; UE_z_locs'];
 %% Generate channel coefficients
 c = l.get_channels; % Generate channels
 csi_mat = zeros(par.B,par.U);

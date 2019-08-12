@@ -74,7 +74,7 @@ res.ERR = zeros(length(par.detector),length(par.SNRdB_list));
 
 % generate random bit stream (antenna x bit x trial)
 bits = randi([0 1],par.MT,par.Q,par.trials);
-
+H_batch = load('freespace_linearAntenna_128B_16U_4000batch.mat');
 
 % trials loop
 for t=1:par.trials
@@ -94,26 +94,27 @@ for t=1:par.trials
     %         n = randn(par.MR,1);
     % LAMA channel matrix - gaussian with variance 1/MR
     if par.iid == 1
-%       H = sqrt(0.5/par.MR)*...
-%           (randn(par.MR,par.MT)+1i*randn(par.MR,par.MT));
-      H = randn(par.MR,par.MT)+1i*randn(par.MR,par.MT);
-      accum = zeros(par.MR,par.MT);
-      for i = 1:par.MR
-          for j = 1:par.MT
-              accum(i,j) = norm(H(i,j));
-          end
-      end
-      accum2 = zeros(1,par.MT);
-      for i = 1:par.MT
-          accum2(i) = sum(accum(:,i))/par.MR;
-      end
-      par.test = par.test + sum(accum2)/par.MT;
-      if t == 99999
-          par.test = par.test/99999;
-          dummy = 1;
-      end
+      H = sqrt(0.5/par.MR)*...
+          (randn(par.MR,par.MT)+1i*randn(par.MR,par.MT));
+%       H = randn(par.MR,par.MT)+1i*randn(par.MR,par.MT);
+%       accum = zeros(par.MR,par.MT);
+%       for i = 1:par.MR
+%           for j = 1:par.MT
+%               accum(i,j) = norm(H(i,j));
+%           end
+%       end
+%       accum2 = zeros(1,par.MT);
+%       for i = 1:par.MT
+%           accum2(i) = sum(accum(:,i))/par.MR;
+%       end
+%       par.test = par.test + sum(accum2)/par.MT;
+%       if t == 99999
+%           par.test = par.test/99999;
+%           dummy = 1;
+%       end
     else  
-      H = channel_sim(par);
+        H = H_batch.csi_batch(:,:,(randi([1,4000])));
+%       H = channel_sim(par);
 %       H = normalize(H);
 %         norm_coef = zeros(1,par.MT);                    
 %         for i = 1:par.MT
@@ -137,6 +138,14 @@ for t=1:par.trials
 %       if t == 99
 %           dummy = 1;
 %       end
+        if par.shuffle == 1
+            indexer = reshape(1:par.MR, par.C,par.MR/par.C);
+            Hidxer = [];
+            for i = 1:par.C
+                Hidxer = [Hidxer indexer(i,:)];
+            end
+            H = H(Hidxer,:);
+        end
     end
     % transmit over noiseless channel (will be used later)
     x_send = H*s;
