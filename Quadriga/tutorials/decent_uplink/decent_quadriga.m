@@ -15,20 +15,18 @@ par.runId = 0; % simulation ID (used to reproduce results)
     par.trials = 2000; % number of Monte-Carlo trials (transmissions)    
     
 %% added parameters for QuaDRiGa
-    par.scenario = 'Freespace'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
+    par.scenario = '3GPP_38.901_UMi_NLOS'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
     par.fc = 3.5e9; % carrier frequency [Hz]
     par.BW = 10e6; % bandwidth [Hz]
     par.N = 1024; % number of carriers
     par.B = par.MR; % number of antennas in the BS (we use a single BS)
     par.U = par.MT; % number of single-antenna UEs
-
+    par.legend = [];
 %% sim parameters (please read!)
     par.SNRdB_list = [-15:2:25]; % list of SNR [dB] values to be simulated
     par.detector = {...         
-         'uMMSE',...
          'uMMSE_decent',...
-         'CG',...
-         'DCG',...
+         'uMMSE',...
          'MF',...
         }; % define detector(s) to be simulated
     
@@ -53,6 +51,7 @@ par.array_h = par.B/par.array_v;
 par.shuffle = 0;
 decentralized_MIMOsim(par);
 hold on
+par.detector = {'uMMSE_decent'};
 par.shuffle = 1;
 decentralized_MIMOsim(par);
 % hold on
@@ -67,7 +66,7 @@ decentralized_MIMOsim(par);
 % 
 % decentralized_MIMOsim(par);
 % hold off
-% legend('uMMSE', 'uMMSE_decent', 'CG', 'DCG_iter4','MF','DCG_iter5', 'DCG_iter6');
+legend('uMMSE_decent_straight', 'uMMSE', 'MF', 'uMMSE_decent_shuffle','Fontsize',12,'Interpreter','none');
 % hold on
 % par.iid = 0;
 % decentralized_MIMOsim(par);

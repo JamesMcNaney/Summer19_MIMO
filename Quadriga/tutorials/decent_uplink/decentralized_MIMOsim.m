@@ -74,7 +74,9 @@ res.ERR = zeros(length(par.detector),length(par.SNRdB_list));
 
 % generate random bit stream (antenna x bit x trial)
 bits = randi([0 1],par.MT,par.Q,par.trials);
-H_batch = load('freespace_linearAntenna_128B_16U_4000batch.mat');
+% H_batch = load('3GPP_38.901_UMi_LOS_linearAntenna_128B_16U_4000batch.mat');
+H_batch = load(strcat(par.scenario, '_linearAntenna_128B_16U_4000batch.mat'));
+
 
 % trials loop
 for t=1:par.trials
@@ -187,21 +189,25 @@ save([ par.simName '_' num2str(par.runId) ],'par','res');
 %     'b^--','r*-.','mo:','kv-','gp--','c*-.','y>:','kx-'};
 % end
 
-if par.iteration == 5
-    marker_style = {'b+-'};
-end
-if par.iteration == 6
-        marker_style = {'bx-'};
-end
+% if par.iteration == 5
+%     marker_style = {'b+-'};
+% end
+% if par.iteration == 6
+%         marker_style = {'bx-'};
+% end
 
-if par.iteration == 4
+% if par.iteration == 4
+if par.shuffle == 0
 % if(par.iid == 1)
 %     marker_style = {'bo-','rs--','mv-.','kp:','g*-','c>--','yx:'};
 %   else
-    marker_style = {'go-','cs--','kv-.','bo-','rs--','kp:','g*-','c>--','yx:'};
+    marker_style = {'go-','co--','ro-.','bo-','ko--','kp:','g*-','c>--','yx:'};
 %   end
 end
 
+if par.shuffle == 1
+    marker_style = {'gx-','cx--','rx-.','bx-','kx--','kp:','g*-','c>--','yx:'};
+end
 
 %% figure
 for d=1:length(par.detector)
@@ -227,12 +233,13 @@ ylabel('bit error rate (BER)','FontSize',12);
 axis([min(par.SNRdB_list) max(par.SNRdB_list) 1e-3 1]);
 % legend(par.detector,'FontSize',12,'location','southwest','interpreter','none');
 
-if par.iteration == 4
+% if par.iteration == 4
 % if(par.iid == 0)
 %     legend([strcat('iid_',string(par.detector)),strcat('QuaDRiGa_',string(par.detector))],'Fontsize',12,'Interpreter','none');
-    legend(string(par.detector),'Fontsize',12,'Interpreter','none');    
-    set(gca,'FontSize',12)
+%     par.legend = [par.legend string(par.detector)];
+%     legend(par.legend,'Fontsize',12,'Interpreter','none');    
+%     set(gca,'FontSize',12)
 % end
-end
+% end
 
 end
