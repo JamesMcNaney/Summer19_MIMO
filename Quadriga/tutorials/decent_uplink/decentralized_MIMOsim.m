@@ -74,18 +74,14 @@ res.ERR = zeros(length(par.detector),length(par.SNRdB_list));
 
 % generate random bit stream (antenna x bit x trial)
 bits = randi([0 1],par.MT,par.Q,par.trials);
-% H_batch = load('3GPP_38.901_UMi_LOS_linearAntenna_128B_16U_4000batch.mat');
-H_batch = load(strcat(par.scenario, '_linearAntenna_128B_16U_4000batch.mat'));
 
+% loads in the Quadriga channel batch of coefficient matrices
+H_batch = load(strcat(par.scenario, '_linearAntenna_128B_16U_4000batch.mat'));
 
 % trials loop
 for t=1:par.trials
     complete = 100*t/par.trials;
     disp([num2str(complete,'%.3f') '% completed'])
-%   debugging purposes
-%     if complete == 93
-%         test = 1;
-%     end
     
     % generate transmit symbol
     idx = bi2de(bits(:,:,t),'left-msb')+1;

@@ -95,8 +95,8 @@ test_graph(:,:,trial) = [UE_x_locs'; UE_y_locs'; UE_z_locs'];
 cb = l.init_builder;
 cb.plpar = [];
 cb.gen_ssf_parameters;
-c = (cb.get_channels)';
-% c = l.get_channels; % Generate channels
+c = (cb.get_channels)'; % Generate channels for NLOS scenarios     
+% c = l.get_channels; % Generate channels for LOS scenarios
 csi_mat = zeros(par.B,par.U);
 for i = 1:par.U
      coll = permute(c(i,1).coeff,[2,1,3]);
