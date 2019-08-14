@@ -240,7 +240,7 @@ xlabel('average SNR per receive antenna [dB]','FontSize',12);
 %ylabel('symbol error rate (SER)','FontSize',12);
 ylabel('bit error rate (BER)','FontSize',12);
 axis([min(par.SNRdB_list) max(par.SNRdB_list) 1e-3 1]);
-legend(par.detector,'FontSize',12,'location','southwest','interpreter','none');
+% legend(par.detector,'FontSize',12,'location','southwest','interpreter','none');
 
 % if par.iteration == 4
 % if(par.iid == 0)
