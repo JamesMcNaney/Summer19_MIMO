@@ -1,6 +1,6 @@
 % rng(21) % set random seed: comment out this line to generate a different channel each time
 
-par.scenario = '3GPP_38.901_UMi_NLOS'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
+par.scenario = 'WINNER_UMi_B1_LOS'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
 par.fc = 3.5e9; % carrier frequency [Hz]
 par.BW = 10e6; % bandwidth [Hz]
 par.N = 1024; % number of carriers
@@ -103,12 +103,12 @@ for i = 1:par.U
      coll = sum(coll,3);
      csi_mat(:,i) = coll;
 end
-    norm_coef = zeros(1,par.MT);                    
-        for i = 1:par.MT
-            for j = 1:par.MR
+    norm_coef = zeros(1,par.U);                    
+        for i = 1:par.U
+            for j = 1:par.B
                 norm_coef(i)=norm_coef(i)+norm(csi_mat(j,i)); %sum the 2-norms of each column
             end
-            norm_coef(i) = norm_coef(i)/par.MR;         %average the 2-norm sum
+            norm_coef(i) = norm_coef(i)/par.B;         %average the 2-norm sum
             csi_mat(:,i) = csi_mat(:,i)/norm_coef(i)*.07833;
         end
     csi_batch(:,:,trial) = csi_mat;
