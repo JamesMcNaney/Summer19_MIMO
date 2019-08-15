@@ -15,7 +15,7 @@ par.runId = 0; % simulation ID (used to reproduce results)
     par.trials = 2000; % number of Monte-Carlo trials (transmissions)    
     
 %% added parameters for QuaDRiGa
-    par.scenario = 'Freespace'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
+    par.scenario = '3GPP_38.901_UMi_NLOS'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
     par.fc = 3.5e9; % carrier frequency [Hz]
     par.BW = 10e6; % bandwidth [Hz]
     par.N = 1024; % number of carriers
@@ -45,21 +45,27 @@ par.runId = 0; % simulation ID (used to reproduce results)
 par.test = 0;
  
 %%
-par.iid = 1;            %value of 1: iid Gaussian csi. value of 0: Quadriga
+par.iid = 0;            %value of 1: iid Gaussian csi. value of 0: Quadriga
 par.array_v = 1;
 par.array_h = par.B/par.array_v;
 par.shuffle = 0;
-% subplot(3,1,1);
+subplot(3,1,1);
 decentralized_MIMOsim(par);
-% title('Shuffle 0');
+title('1x128 Shuffle 0');
 % % hold on
 % % par.detector = {'uMMSE_decent'};
 % par.shuffle = 1;
-% % par.array_v = 1;
-% % par.array_h = par.B/par.array_v;
-% subplot(3,1,2);
-% decentralized_MIMOsim(par);
-% title('Shuffle 1');
+% par.array_v = 1;
+% par.array_h = par.B/par.array_v;
+par.shuffle = 1;
+subplot(3,1,2);
+decentralized_MIMOsim(par);
+title('1x128 Shuffle 1');
+
+par.shuffle = 2;
+subplot(3,1,3);
+decentralized_MIMOsim(par);
+title('1x128 Shuffle 2');
 % subplot(3,1,3);
 % par.shuffle = 2;
 % decentralized_MIMOsim(par);
