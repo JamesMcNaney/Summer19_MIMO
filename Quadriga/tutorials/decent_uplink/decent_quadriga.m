@@ -45,25 +45,25 @@ par.runId = 0; % simulation ID (used to reproduce results)
 par.test = 0;
  
 %%
-par.iid = 0;            %value of 1: iid Gaussian csi. value of 0: Quadriga
-par.array_v = 4;
+par.iid = 1;            %value of 1: iid Gaussian csi. value of 0: Quadriga
+par.array_v = 1;
 par.array_h = par.B/par.array_v;
 par.shuffle = 0;
-subplot(3,1,1);
+% subplot(3,1,1);
 decentralized_MIMOsim(par);
-title('Shuffle 0');
-% hold on
-% par.detector = {'uMMSE_decent'};
-par.shuffle = 1;
-% par.array_v = 1;
-% par.array_h = par.B/par.array_v;
-subplot(3,1,2);
-decentralized_MIMOsim(par);
-title('Shuffle 1');
-subplot(3,1,3);
-par.shuffle = 2;
-decentralized_MIMOsim(par);
-title('Shuffle 2');
+% title('Shuffle 0');
+% % hold on
+% % par.detector = {'uMMSE_decent'};
+% par.shuffle = 1;
+% % par.array_v = 1;
+% % par.array_h = par.B/par.array_v;
+% subplot(3,1,2);
+% decentralized_MIMOsim(par);
+% title('Shuffle 1');
+% subplot(3,1,3);
+% par.shuffle = 2;
+% decentralized_MIMOsim(par);
+% title('Shuffle 2');
 % hold on
 % par.iid = 0;
 % decentralized_MIMOsim(par);

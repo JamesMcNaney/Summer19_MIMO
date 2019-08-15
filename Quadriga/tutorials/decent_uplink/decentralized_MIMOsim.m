@@ -100,22 +100,6 @@ for t=1:par.trials
     if par.iid == 1
       H = sqrt(0.5/par.MR)*...
           (randn(par.MR,par.MT)+1i*randn(par.MR,par.MT));
-%       H = randn(par.MR,par.MT)+1i*randn(par.MR,par.MT);
-%       accum = zeros(par.MR,par.MT);
-%       for i = 1:par.MR
-%           for j = 1:par.MT
-%               accum(i,j) = norm(H(i,j));
-%           end
-%       end
-%       accum2 = zeros(1,par.MT);
-%       for i = 1:par.MT
-%           accum2(i) = sum(accum(:,i))/par.MR;
-%       end
-%       par.test = par.test + sum(accum2)/par.MT;
-%       if t == 99999
-%           par.test = par.test/99999;
-%           dummy = 1;
-%       end
     else  
         H = H_batch.csi_batch(:,:,(randi([1,4000])));
 %       H = channel_sim(par);

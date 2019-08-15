@@ -1,12 +1,10 @@
-% rng(21) % set random seed: comment out this line to generate a different channel each time
-
 par.scenario = 'Freespace'; % 'BERLIN_UMa_NLOS', 'Freespace', 'mmMAGIC_UMi_LOS', 'mmMAGIC_UMi_NLOS'
 par.fc = 3.5e9; % carrier frequency [Hz]
 par.BW = 10e6; % bandwidth [Hz]
 par.N = 1024; % number of carriers
 par.B = 128; % number of antennas in the BS (we use a single BS)
 par.U = 16; % number of single-antenna UEs
-par.array_v = 4;
+par.array_v = 1;
 par.array_h = par.B/par.array_v;
 par.trials = 4000;
 csi_batch = zeros(par.B,par.U,par.trials);
@@ -24,9 +22,8 @@ s.show_progress_bars = false;
 %creating a randomization of UE's that guarantees outside of sep_ang
 %degrees separation between UEs. Up to a maximum of rand_trials iterations
 
-sep_ang = 2;                                %miminum degrees separation desired
-                               %compared against rand_trials
-angle_par = 1;                              %stays 1 unless UEs are adequately spaced
+sep_ang = 2;                    %miminum degrees separation desired
+angle_par = 1;                  %stays 1 unless UEs are adequately spaced
 
 %%
 % place BS antennas as a 2D array, same for all trials
